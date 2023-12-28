@@ -55,6 +55,9 @@ return {
 	-- },
 	{
 		"Shatur/neovim-session-manager",
+		opts = {
+			autosave_only_in_session = true,
+		}
 	},
 	{
 		"MDeiml/tree-sitter-markdown",
@@ -93,7 +96,8 @@ return {
 					-- null_ls.builtins.completion.luasnip,
 					null_ls.builtins.diagnostics.mypy.with({
 						extra_args = {
-							mypy_path = "%PATH%;%PYTHONPATH%;%:p:h"
+							mypy_path = "%PATH%;%PYTHONPATH%;%:p:h",
+							"--ignore-missing-imports",
 						}
 					}),
 					null_ls.builtins.formatting.black.with({

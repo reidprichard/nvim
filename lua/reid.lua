@@ -7,7 +7,20 @@ if vim.g.neovide then
   vim.keymap.set("t", "<MouseMove>", "<NOP>")
 end
 
-local nvim_lsp = require("lspconfig")
+local lspconfig = require("lspconfig")
+
+lspconfig.pylsp.setup {
+  settings = {
+    pylsp = {
+      plugins = {
+        flake8 = {enabled = false},
+        pycodestyle = {enabled = false},
+        mccabe = {enabled = false},
+      }
+    }
+  }
+}
+
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
@@ -65,12 +78,13 @@ local ahk2_configs = {
 }
 local configs = require "lspconfig.configs"
 configs["ahk2"] = { default_config = ahk2_configs }
-nvim_lsp.ahk2.setup({})
+lspconfig.ahk2.setup({})
 
 require('onedark').setup {
-  toggle_style_key = '<leader>ts',
+  -- toggle_style_key = '<leader>ts',
   toggle_style_list = { 'dark', 'cool', 'deep', 'warm' }
 }
+vim.keymap.set("n", "<leader>ts", require("onedark").toggle, { desc = "[T]oggle [S]tyle" } )
 
 require("luasnip.loaders.from_vscode").lazy_load({ paths = { "./snippets/" } })
 
@@ -225,7 +239,7 @@ end
 vim.keymap.set("v", "<leader>yC", YankWithoutBreaks, { desc = "[Y]ank to [C]lipboard (remove newlines)" })
 
 -- ** NoNeckPain binds **
-vim.keymap.set("n", "<leader>ct", function() vim.cmd(":NoNeckPain") end, { desc = "[C]enter [T]oggle" })
+vim.keymap.set("n", "<leader>tc", function() vim.cmd(":NoNeckPain") end, { desc = "[T]oggle [C]enter" })
 vim.keymap.set("n", "<leader>cu", function() vim.cmd(":NoNeckPainWidthUp") end, { desc = "[C]enter width [U]p" })
 vim.keymap.set("n", "<leader>cd", function() vim.cmd(":NoNeckPainWidthDown") end, { desc = "[C]enter width [D]own" })
 
