@@ -9,17 +9,17 @@ end
 
 local lspconfig = require("lspconfig")
 
-lspconfig.pylsp.setup {
-  settings = {
-    pylsp = {
-      plugins = {
-        flake8 = {enabled = false},
-        pycodestyle = {enabled = false},
-        mccabe = {enabled = false},
-      }
-    }
-  }
-}
+-- lspconfig.pylsp.setup {
+--   settings = {
+--     pylsp = {
+--       plugins = {
+--         flake8 = {enabled = false},
+--         pycodestyle = {enabled = false},
+--         mccabe = {enabled = false},
+--       }
+--     }
+--   }
+-- }
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)

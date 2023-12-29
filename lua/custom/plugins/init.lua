@@ -2,6 +2,7 @@
 --  I promise not to create any merge conflicts in this directory :)
 --
 -- See the kickstart.nvim README for more information
+Platform = vim.loop.os_uname().sysname
 return {
 	{
 		"shortcuts/no-neck-pain.nvim",
@@ -19,20 +20,22 @@ return {
 		version = "*",
 		opts = {
 			open_mapping = [[<c-\>]],
-			shell = "powershell.exe"
+			shell = ("powershell.exe" and Platform=="Windows_NT" or vim.o.shell)
 		},
 		config = function(_, opts)
-			local powershell_options = {
-				shell = vim.fn.executable "pwsh" == 1 and "pwsh" or "powershell",
-				shellcmdflag =
-				"-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
-				shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait",
-				shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode",
-				shellquote = "",
-				shellxquote = "",
-			}
-			for option, value in pairs(powershell_options) do
-				vim.opt[option] = value
+			if Platform == "Windows_NT" then
+				local powershell_options = {
+					shell = vim.fn.executable "pwsh" == 1 and "pwsh" or "powershell",
+					shellcmdflag =
+					"-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
+					shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait",
+					shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode",
+					shellquote = "",
+					shellxquote = "",
+				}
+				for option, value in pairs(powershell_options) do
+					vim.opt[option] = value
+				end
 			end
 			require("toggleterm").setup(opts)
 		end
