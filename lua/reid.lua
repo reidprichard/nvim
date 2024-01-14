@@ -1,6 +1,7 @@
 if vim.g.neovide then
   -- vim.g.neovide_transparency = 0.99
-  vim.g.neovide_scroll_animation_length = 1
+  vim.g.neovide_scroll_animation_length = 0.25
+  vim.g.neovide_scroll_animation_far_lines = 0
   vim.g.neovide_refresh_rate = 144
   vim.g.neovide_refresh_rate_idle = 60
   vim.g.neovide_cursor_animation_length = 0
@@ -8,6 +9,18 @@ if vim.g.neovide then
 end
 
 local lspconfig = require("lspconfig")
+
+-- lspconfig.pyright.setup {
+--   settings = {
+--     python = {
+--       analysis = {
+--         stubPath = vim.fn.expand("$HOME/python-type-stubs"),
+--         -- typeCheckingMode = "off",
+--         -- pythonPath = "C:/Users/Reid/AppData/Local/Programs/Python/Python310/python.exe",
+--       }
+--     }
+--   }
+-- }
 
 -- lspconfig.pylsp.setup {
 --   settings = {
@@ -103,6 +116,11 @@ vim.diagnostic.config({
   virtual_text = false, -- Turn off inline diagnostics
 })
 
+Platform = vim.loop.os_uname().sysname
+if Platform == "Windows_NT" then
+  vim.g.python3_host_prog = "python.exe"
+end
+
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
@@ -111,10 +129,23 @@ vim.opt.indentexpr = ""
 vim.opt.guifont = "CaskaydiaCove Nerd Font:h16"
 vim.opt.wrap = false
 vim.opt.number = true
+vim.opt.hlsearch = true
+vim.g.mapleader = " "
+
+-- function ToggleBackgroundColor()
+--   local setting_1 = 2632756
+--   local setting_2 = 2632756
+--   if vim.api.nvim_get_hl(0, {name="bg"}) == setting_1 then
+--     vim.api.nvim_set_hl(0, "Normal", {bg=setting_2})
+--   else
+--     vim.api.nvim_set_hl(0, "Normal", {bg=setting_1})
+--   end
+-- end
+--
+-- vim.api.nvim_create_autocmd({"FocusGained", "FocusLost"}, { callback = ToggleBackgroundColor } )
 
 -- ************** Key mappings ************
 
-vim.g.mapleader = " "
 
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
@@ -169,8 +200,6 @@ vim.keymap.set("n", "<leader>sd", function() vim.cmd("SessionManager delete_sess
 vim.keymap.set({ "n", "v" }, "<leader>lf", function() vim.lsp.buf.format { timeout_ms = 2500 } end,
   { desc = "[L]SP [F]ormat" })
 
--- vim.keymap.set('i', "<c-space>", "coc#refresh", { desc = "autocomplete" } )
--- vim.keymap.set('i', "<NUL>", "coc#refresh", { desc = "autocomplete" } )
 -- vim.keymap.set('n', '<leader>h', function() vim.diagnostic.open_float() end, { desc = "Show [H]over" })
 
 -- ** LuaSnip setup **

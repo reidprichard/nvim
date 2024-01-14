@@ -3,6 +3,10 @@
 --
 -- See the kickstart.nvim README for more information
 Platform = vim.loop.os_uname().sysname
+toggleterm_shell = vim.o.shell
+if Platform == "Windows_NT" then
+	toggleterm_shell = "powershell.exe"
+end
 return {
 	{
 		"shortcuts/no-neck-pain.nvim",
@@ -20,7 +24,7 @@ return {
 		version = "*",
 		opts = {
 			open_mapping = [[<c-\>]],
-			shell = ("powershell.exe" and Platform=="Windows_NT" or vim.o.shell)
+			shell = toggleterm_shell
 		},
 		config = function(_, opts)
 			if Platform == "Windows_NT" then
@@ -150,4 +154,7 @@ return {
 		"stevearc/dressing.nvim",
 		opts = {},
 	},
+	{
+		"RRethy/vim-illuminate",
+	}
 }
