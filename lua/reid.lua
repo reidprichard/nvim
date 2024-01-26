@@ -294,3 +294,6 @@ vim.keymap.set("n", "<C-/>", function() vim.cmd(":noh") end, { desc = "Disable s
 
 vim.keymap.set("n", "<leader>tb", function() vim.cmd(":ToggleAlternate") end,
   { desc = "[T]oggle [B]oolean (rmagatti/alternate-toggler)" })
+
+vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help)
+
