@@ -169,10 +169,7 @@ return {
 	{
 		"RRethy/vim-illuminate",
 	},
-	-- {
-	-- 	"niuiic/core.nvim",
-	-- },
-	-- {
-	-- 	"niuiic/typst-preview.nvim",
-	-- },
+	{
+		"chrisbra/unicode.vim",
+	},
 }
