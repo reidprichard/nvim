@@ -297,3 +297,4 @@ vim.keymap.set("n", "<leader>tb", function() vim.cmd(":ToggleAlternate") end,
 
 vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help)
 
+vim.keymap.set({"n", "t"}, "<C-j>", function() vim.cmd("ToggleTerm size=" .. vim.api.nvim_win_get_height(0)*0.3) end)

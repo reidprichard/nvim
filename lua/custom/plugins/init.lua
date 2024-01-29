@@ -23,8 +23,16 @@ return {
 		"akinsho/toggleterm.nvim",
 		version = "*",
 		opts = {
-			open_mapping = [[<c-j>]],
-			shell = toggleterm_shell
+			-- open_mapping = [[<c-j>]],
+			shell = toggleterm_shell,
+			direction = "float",
+			float_opts = {
+				height = function() return math.floor(vim.api.nvim_win_get_height(0)*0.25) end,
+				row = function() return vim.api.nvim_win_get_height(0) end,
+				border = "single",
+				winblend = 5,
+			},
+			on_open = function() vim.api.nvim_win_set_config(0, { anchor = "SW" }) end,
 		},
 		config = function(_, opts)
 			if Platform == "Windows_NT" then
