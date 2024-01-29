@@ -172,4 +172,7 @@ return {
 	{
 		"chrisbra/unicode.vim",
 	},
+	{
+		"nvim-telescope/telescope-symbols.nvim"
+	},
 }

@@ -325,3 +325,5 @@ vim.keymap.set("n", "<leader>gp", function() toggleterm.exec("git push origin ma
 --
 -- vim.keymap.set("t", "<C-.", function() ResizeWindow(5) end)
 -- vim.keymap.set("t", "<C-,", function() ResizeWindow(5) end)
+
+vim.keymap.set("n", "<leader>ss", require("telescope.builtin").symbols, { desc = "[S]earch [S]ymbols"})
