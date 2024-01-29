@@ -308,6 +308,7 @@ local function GitAddCommit()
     function(input)
       if input == nil then return end
       toggleterm.exec("git add . && git commit -m \"" .. input .. "\"")
+      toggleterm.toggle()
     end
   )
   require("dressing.config").update({ input = { relative = "cursor" } })
