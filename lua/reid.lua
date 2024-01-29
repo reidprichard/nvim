@@ -306,6 +306,7 @@ local function GitAddCommit()
   require("dressing.config").update({ input = { relative = "editor" } })
   vim.ui.input({ prompt = "Enter commit message." },
     function(input)
+      if input == nil then return end
       toggleterm.exec("git add . && git commit -m \"" .. input .. "\"")
     end
   )
