@@ -152,7 +152,8 @@ vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 local function RunPython()
   vim.cmd.write()
   local script_path = vim.fn.expand("%"):gsub(" ", "\\ ")
-  vim.cmd("TermExec cmd=\"python " .. script_path .. "\"")
+  -- vim.cmd("TermExec cmd=\"python " .. script_path .. "\"")
+  require("toggleterm").exec("python \"" .. script_path .. "\"")
 end
 vim.keymap.set("n", "<leader>rp", RunPython, { desc = "[R]un [P]ython" })
 -- vim.keymap.set("n", "<leader>rp", function() vim.cmd.write() vim.cmd("TermExec cmd=\"python %\"") end, { desc = "[R]un [P]ython" } )
@@ -300,9 +301,12 @@ vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help)
 vim.keymap.set({ "n", "t" }, "<C-j>", function() vim.cmd("ToggleTerm size=" .. vim.api.nvim_win_get_height(0) * 0.3) end)
 
 local function GitAddCommitPush()
-  vim.ui.input({ prompt = "Enter commit message." }, function(input)
-    require("toggleterm").exec("git add . && git commit -m \"" .. input .. "\" && git push origin main")
-  end
+  require("dressing.config").update({ input = { relative = "editor" } })
+  vim.ui.input({ prompt = "Enter commit message." },
+    function(input)
+      require("toggleterm").exec("git add . && git commit -m \"" .. input .. "\" && git push origin main")
+    end
   )
+  require("dressing.config").update({ input = { relative = "cursor" } })
 end
 vim.keymap.set("n", "<leader>gp", GitAddCommitPush, { desc = "[G]it [P]ush: add, commit, and push current directory" })

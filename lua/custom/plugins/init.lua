@@ -160,15 +160,19 @@ return {
 	},
 	{
 		"stevearc/dressing.nvim",
-		opts = {},
+		-- opts = {
+		-- 	input = {
+		-- 		relative = "editor",
+		-- 	},
+		-- },
 	},
 	{
 		"RRethy/vim-illuminate",
 	},
-	{
-		"niuiic/core.nvim",
-	},
-	{
-		"niuiic/typst-preview.nvim",
-	},
+	-- {
+	-- 	"niuiic/core.nvim",
+	-- },
+	-- {
+	-- 	"niuiic/typst-preview.nvim",
+	-- },
 }
