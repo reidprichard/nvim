@@ -8,6 +8,7 @@ if vim.g.neovide then
   vim.keymap.set("t", "<MouseMove>", "<NOP>")
 end
 
+local toggleterm = require("toggleterm")
 local lspconfig = require("lspconfig")
 
 -- lspconfig.pyright.setup {
@@ -153,7 +154,7 @@ local function RunPython()
   vim.cmd.write()
   local script_path = vim.fn.expand("%"):gsub(" ", "\\ ")
   -- vim.cmd("TermExec cmd=\"python " .. script_path .. "\"")
-  require("toggleterm").exec("python \"" .. script_path .. "\"")
+  toggleterm.exec("python \"" .. script_path .. "\"")
 end
 vim.keymap.set("n", "<leader>rp", RunPython, { desc = "[R]un [P]ython" })
 -- vim.keymap.set("n", "<leader>rp", function() vim.cmd.write() vim.cmd("TermExec cmd=\"python %\"") end, { desc = "[R]un [P]ython" } )
@@ -298,15 +299,18 @@ vim.keymap.set("n", "<leader>tb", function() vim.cmd(":ToggleAlternate") end,
 
 vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help)
 
-vim.keymap.set({ "n", "t" }, "<C-j>", function() vim.cmd("ToggleTerm size=" .. vim.api.nvim_win_get_height(0) * 0.3) end)
+vim.keymap.set({ "i", "n", "t" }, "<C-j>",
+  function() vim.cmd("ToggleTerm size=" .. vim.api.nvim_win_get_height(0) * 0.3) end)
 
-local function GitAddCommitPush()
+local function GitAddCommit()
   require("dressing.config").update({ input = { relative = "editor" } })
   vim.ui.input({ prompt = "Enter commit message." },
     function(input)
-      require("toggleterm").exec("git add . && git commit -m \"" .. input .. "\" && git push origin main")
+      toggleterm.exec("git add . && git commit -m \"" .. input .. "\"")
     end
   )
   require("dressing.config").update({ input = { relative = "cursor" } })
 end
-vim.keymap.set("n", "<leader>gp", GitAddCommitPush, { desc = "[G]it [P]ush: add, commit, and push current directory" })
+vim.keymap.set("n", "<leader>gc", GitAddCommit, { desc = "[G]it [C]ommit: add and commit current directory" })
+vim.keymap.set("n", "<leader>gp", function() toggleterm.exec("git push origin main") end,
+  { desc = "[G]it [P]ush origin main" })
