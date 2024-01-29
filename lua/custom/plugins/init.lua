@@ -5,7 +5,7 @@
 Platform = vim.loop.os_uname().sysname
 toggleterm_shell = vim.o.shell
 if Platform == "Windows_NT" then
-	toggleterm_shell = "powershell.exe"
+	toggleterm_shell = "pwsh.exe"
 end
 return {
 	{

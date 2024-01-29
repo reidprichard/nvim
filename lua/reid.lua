@@ -97,7 +97,7 @@ require('onedark').setup {
   -- toggle_style_key = '<leader>ts',
   toggle_style_list = { 'dark', 'cool', 'deep', 'warm' }
 }
-vim.keymap.set("n", "<leader>ts", require("onedark").toggle, { desc = "[T]oggle [S]tyle" } )
+vim.keymap.set("n", "<leader>ts", require("onedark").toggle, { desc = "[T]oggle [S]tyle" })
 
 require("luasnip.loaders.from_vscode").lazy_load({ paths = { "./snippets/" } })
 
@@ -297,4 +297,12 @@ vim.keymap.set("n", "<leader>tb", function() vim.cmd(":ToggleAlternate") end,
 
 vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help)
 
-vim.keymap.set({"n", "t"}, "<C-j>", function() vim.cmd("ToggleTerm size=" .. vim.api.nvim_win_get_height(0)*0.3) end)
+vim.keymap.set({ "n", "t" }, "<C-j>", function() vim.cmd("ToggleTerm size=" .. vim.api.nvim_win_get_height(0) * 0.3) end)
+
+local function GitAddCommitPush()
+  vim.ui.input({ prompt = "Enter commit message." }, function(input)
+    require("toggleterm").exec("git add . && git commit -m \"" .. input .. "\" && git push origin main")
+  end
+  )
+end
+vim.keymap.set("n", "<leader>gp", GitAddCommitPush, { desc = "[G]it [P]ush: add, commit, and push current directory" })
