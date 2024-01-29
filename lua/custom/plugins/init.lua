@@ -23,7 +23,7 @@ return {
 		"akinsho/toggleterm.nvim",
 		version = "*",
 		opts = {
-			open_mapping = [[<c-\>]],
+			open_mapping = [[<c-j>]],
 			shell = toggleterm_shell
 		},
 		config = function(_, opts)
