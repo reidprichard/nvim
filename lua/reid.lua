@@ -299,8 +299,8 @@ vim.keymap.set("n", "<leader>tb", function() vim.cmd(":ToggleAlternate") end,
 
 vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help)
 
-vim.keymap.set({ "i", "n", "t" }, "<C-j>",
-  function() vim.cmd("ToggleTerm size=" .. vim.api.nvim_win_get_height(0) * 0.3) end)
+-- vim.keymap.set({ "i", "n", "t" }, "<C-j>",
+--   function() vim.cmd("ToggleTerm size=" .. vim.api.nvim_win_get_height(0) * 0.5) end)
 
 local function GitAddCommit()
   require("dressing.config").update({ input = { relative = "editor" } })
@@ -308,7 +308,6 @@ local function GitAddCommit()
     function(input)
       if input == nil then return end
       toggleterm.exec("git add . && git commit -m \"" .. input .. "\"")
-      toggleterm.toggle()
     end
   )
   require("dressing.config").update({ input = { relative = "cursor" } })
@@ -316,3 +315,13 @@ end
 vim.keymap.set("n", "<leader>gc", GitAddCommit, { desc = "[G]it [C]ommit: add and commit current directory" })
 vim.keymap.set("n", "<leader>gp", function() toggleterm.exec("git push origin main") end,
   { desc = "[G]it [P]ush origin main" })
+-- function ResizeWindow(offset, window)
+--   -- if window == nil then
+--   --   window = 0
+--   -- end
+--   local old_height = vim.api.nvim_win_get_height(window)
+--   vim.api.nvim_win_set_height(window, old_height + offset)
+-- end
+--
+-- vim.keymap.set("t", "<C-.", function() ResizeWindow(5) end)
+-- vim.keymap.set("t", "<C-,", function() ResizeWindow(5) end)
