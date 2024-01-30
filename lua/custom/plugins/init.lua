@@ -27,6 +27,8 @@ return {
 			shell = toggleterm_shell,
 			direction = "float",
 			float_opts = {
+				width = function() return math.floor(vim.api.nvim_win_get_width(0)*0.99) end,
+				col = 1,
 				height = function() return math.floor(vim.api.nvim_win_get_height(0)*0.4) end,
 				row = function() return vim.api.nvim_win_get_height(0) end,
 				border = "single",

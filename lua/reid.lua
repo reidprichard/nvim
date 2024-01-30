@@ -154,6 +154,7 @@ local function RunPython()
   vim.cmd.write()
   local script_path = vim.fn.expand("%"):gsub(" ", "\\ ")
   -- vim.cmd("TermExec cmd=\"python " .. script_path .. "\"")
+  toggleterm.exec("clear")
   toggleterm.exec("python \"" .. script_path .. "\"")
 end
 vim.keymap.set("n", "<leader>rp", RunPython, { desc = "[R]un [P]ython" })
@@ -327,3 +328,4 @@ vim.keymap.set("n", "<leader>gp", function() toggleterm.exec("git push origin ma
 -- vim.keymap.set("t", "<C-,", function() ResizeWindow(5) end)
 
 vim.keymap.set("n", "<leader>ss", require("telescope.builtin").symbols, { desc = "[S]earch [S]ymbols"})
+vim.keymap.set("i", "<C-i>", require("telescope.builtin").symbols, { desc = "[I]nsert symbol"})
