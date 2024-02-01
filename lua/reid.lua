@@ -293,6 +293,8 @@ vim.keymap.set("n", "<M-k>", function() vim.cmd(":m-2") end, { desc = "Move sele
 vim.keymap.set("v", "<M-j>", ":m '>+1<CR>gv=gv", { desc = "Move selected lines down one line" })
 vim.keymap.set("v", "<M-k>", ":m '<-2<CR>gv=gv", { desc = "Move selected lines up one line" })
 
+-- The below must be done twice - <C-_> is for in a terminal, while <C-/> is for in a GUI. Both map to Ctrl-/
+vim.keymap.set("n", "<C-_>", function() vim.cmd(":noh") end, { desc = "Disable search highlighting" })
 vim.keymap.set("n", "<C-/>", function() vim.cmd(":noh") end, { desc = "Disable search highlighting" })
 
 vim.keymap.set("n", "<leader>tb", function() vim.cmd(":ToggleAlternate") end,
@@ -305,7 +307,8 @@ vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help)
 
 local function GitAddCommit()
   require("dressing.config").update({ input = { relative = "editor" } })
-  vim.ui.input({ prompt = "Enter commit message." },
+  vim.ui.input(
+    { prompt = "Enter commit message." },
     function(input)
       if input == nil then return end
       toggleterm.exec("git add . && git commit -m \"" .. input .. "\"")
