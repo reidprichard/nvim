@@ -310,7 +310,10 @@ local function GitAddCommit()
   vim.ui.input(
     { prompt = "Enter commit message." },
     function(input)
-      if input == nil then return end
+      if input == nil then
+        return
+      end
+      input = input:gsub('"', '""')
       toggleterm.exec("git add . && git commit -m \"" .. input .. "\"")
     end
   )
