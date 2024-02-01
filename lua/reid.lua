@@ -313,7 +313,11 @@ local function GitAddCommit()
       if input == nil then
         return
       end
-      input = input:gsub('"', '""')
+      if Platform == "Windows_NT" then
+        input = input:gsub('"', '""')
+      else
+        input = input:gsub('"', '\\"')
+      end
       toggleterm.exec("git add . && git commit -m \"" .. input .. "\"")
     end
   )
