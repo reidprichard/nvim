@@ -113,6 +113,9 @@ require("luasnip.loaders.from_vscode").lazy_load({ paths = { "./snippets/" } })
 --   }
 -- }
 
+local wk = require("which-key")
+-- wk.register
+
 vim.diagnostic.config({
   virtual_text = false, -- Turn off inline diagnostics
 })
@@ -158,7 +161,7 @@ local function RunPython(background)
   local script_path = vim.fn.expand("%"):gsub(" ", "\\ ")
   local command = "python \"" .. script_path .. "\""
   if background then
-    vim.fn.jobstart(command)
+    vim.fn.jobstart(command, { on_exit = function() print("Done executing Python.") end })
   else
     toggleterm.exec("clear")
     toggleterm.exec(command)
