@@ -282,16 +282,28 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 require('telescope').setup {
   defaults = {
     mappings = {
-      n = {
-        ['<C-d>'] = require('telescope.actions').delete_buffer
-      },
       i = {
         ['<C-u>'] = false,
         ['<C-d>'] = require('telescope.actions').delete_buffer,
       },
+      n = {
+        ['<C-d>'] = require('telescope.actions').delete_buffer,
+      },
     },
-    path_display = { "smart" },
+    path_display = { 'smart' },
   },
+  pickers = {
+    help_tags = {
+      mappings = {
+        n = {
+          ['<CR>'] = require('telescope.actions').file_tab
+        },
+        i = {
+          ['<CR>'] = require('telescope.actions').file_tab
+        },
+      }
+    }
+  }
 }
 
 -- Enable telescope fzf native, if installed
@@ -308,8 +320,8 @@ vim.keymap.set('n', '<leader>/', function()
   })
 end, { desc = '[/] Fuzzily search in current buffer' })
 
-vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
 vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
+vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
 vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
@@ -329,12 +341,12 @@ require('nvim-treesitter.configs').setup {
 
 
   -- List of parsers to ignore installing (or "all")
-  ignore_install = { },
+  ignore_install = {},
 
   highlight = { enable = true },
-  indent = { 
+  indent = {
     enable = true,
-    disable = { "python" },
+    disable = { 'python' },
   },
   incremental_selection = {
     enable = true,
@@ -418,7 +430,7 @@ local on_attach = function(_, bufnr)
   nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
   -- nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-  nmap('gd', require("telescope.builtin").lsp_definitions, '[G]oto [D]efinition')
+  nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
   nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
   nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')

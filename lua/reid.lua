@@ -127,7 +127,7 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.inde = "" -- Had to do this to prevent weird spacing being added when I typed "else" in a cpp file?
 vim.opt.indentexpr = ""
-vim.opt.guifont = "CaskaydiaCove Nerd Font:h16"
+vim.opt.guifont = "CaskaydiaCove Nerd Font:h18"
 vim.opt.wrap = false
 vim.opt.number = true
 vim.opt.hlsearch = true
@@ -283,6 +283,9 @@ local function TelescopeLiveGrep()
   end
 end
 
+-- ** Search all buffers' contents **
+vim.keymap.set("n", "<leader>sb", TelescopeLiveGrep, { desc = "[S]earch open [B]uffers contents" })
+
 -- ** Move selected lines up/down **
 vim.keymap.set("n", "<M-j>", function() vim.cmd(":m+1") end, { desc = "Move selected line down one line" })
 vim.keymap.set("n", "<M-k>", function() vim.cmd(":m-2") end, { desc = "Move selected line up one line" })
@@ -336,3 +339,7 @@ vim.keymap.set("n", "<leader>gp", function() toggleterm.exec("git push origin ma
 
 vim.keymap.set("n", "<leader>ss", require("telescope.builtin").symbols, { desc = "[S]earch [S]ymbols"})
 vim.keymap.set("i", "<C-i>", require("telescope.builtin").symbols, { desc = "[I]nsert symbol"})
+
+vim.keymap.set({"n", "i"}, "<C-S-N>", function() vim.cmd("tabnext") end, { desc = "Go to next tab" } )
+vim.keymap.set({"n", "i"}, "<C-S-P>", function() vim.cmd("tabprevious") end, { desc = "Go to previous tab" } )
+vim.keymap.set({"n"}, "<C-S-W>", function() vim.cmd("tabclose") end, { desc = "Close current tab" } )
