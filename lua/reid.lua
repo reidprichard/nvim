@@ -339,3 +339,5 @@ vim.keymap.set("n", "<leader>gp", function() toggleterm.exec("git push origin ma
 
 vim.keymap.set("n", "<leader>ss", require("telescope.builtin").symbols, { desc = "[S]earch [S]ymbols"})
 vim.keymap.set("i", "<C-i>", require("telescope.builtin").symbols, { desc = "[I]nsert symbol"})
+
+vim.keymap.set("n", "<leader>d", '"_d', { desc = "[D]elete to blackhole register" })
