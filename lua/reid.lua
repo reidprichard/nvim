@@ -114,15 +114,17 @@ require("luasnip.loaders.from_vscode").lazy_load({ paths = { "./snippets/" } })
 -- }
 
 local wk = require("which-key")
-wk.register({ ["<leader>"] = {
-  b = { name = "[B]ackground" },
-  g = { name = "[G]it"},
-  l = { name = "[L]SP" },
-  r = { name = "[R]un" },
-  s = { name = "[S]earch" },
-  t = { name = "[T]oggle" },
-  w = { name = "[W]orkspace" }, -- This one doesn't work for some reason?
-} } )
+wk.register({
+  ["<leader>"] = {
+    b = { name = "[B]ackground" },
+    g = { name = "[G]it" },
+    l = { name = "[L]SP" },
+    r = { name = "[R]un" },
+    s = { name = "[S]earch" },
+    t = { name = "[T]oggle" },
+    w = { name = "[W]orkspace" }, -- This one doesn't work for some reason?
+  }
+})
 
 vim.diagnostic.config({
   virtual_text = false, -- Turn off inline diagnostics
@@ -145,7 +147,7 @@ vim.opt.hlsearch = true
 vim.g.mapleader = " "
 vim.opt.splitright = true
 vim.opt.splitbelow = true
-vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions,resize"
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions,resize"
 
 -- function ToggleBackgroundColor()
 --   local setting_1 = 2632756
@@ -323,6 +325,29 @@ vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help)
 
 -- vim.keymap.set({ "i", "n", "t" }, "<C-j>",
 --   function() vim.cmd("ToggleTerm size=" .. vim.api.nvim_win_get_height(0) * 0.5) end)
+-- " optional: change highlight, otherwise Pmenu is used
+-- call nvim_win_set_option(win, 'winhl', 'Normal:MyHighlight')
+
+local function GitCommitError(error_text)
+  -- local width = vim.api.nvim_win_get_width(0)
+  -- local height = vim.api.nvim_win_get_height(0)
+  local width = vim.o.columns
+  local height = vim.o.lines
+  local opts = {
+    relative = 'editor',
+    width = width * 0.5,
+    col = width * 0.25,
+    height = math.floor(height * 0.25),
+    row = height * 0.5,
+    style = "minimal",
+    border = "single",
+    title = "Git Commit Error",
+    title_pos = "center",
+  }
+  local buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_buf_set_lines(buf, 1, 1, false, error_text)
+  vim.api.nvim_open_win(buf, true, opts)
+end
 
 local function GitAddCommit()
   require("dressing.config").update({ input = { relative = "editor" } })
@@ -337,7 +362,9 @@ local function GitAddCommit()
       else
         input = input:gsub('"', '\\"')
       end
-      toggleterm.exec("git add . && git commit -m \"" .. input .. "\"")
+      vim.fn.jobstart("git add . && git commit -m \"" .. input .. "\"",
+        { on_stderr = function(chan_id, data, name) GitCommitError(data) end,
+        stderr_buffered = true})
     end
   )
   require("dressing.config").update({ input = { relative = "cursor" } })
@@ -356,9 +383,9 @@ vim.keymap.set("n", "<leader>gp", function() toggleterm.exec("git push origin ma
 -- vim.keymap.set("t", "<C-.", function() ResizeWindow(5) end)
 -- vim.keymap.set("t", "<C-,", function() ResizeWindow(5) end)
 
-vim.keymap.set("n", "<leader>ss", require("telescope.builtin").symbols, { desc = "[S]earch [S]ymbols"})
-vim.keymap.set("i", "<C-i>", require("telescope.builtin").symbols, { desc = "[I]nsert symbol"})
+vim.keymap.set("n", "<leader>ss", require("telescope.builtin").symbols, { desc = "[S]earch [S]ymbols" })
+vim.keymap.set("i", "<C-i>", require("telescope.builtin").symbols, { desc = "[I]nsert symbol" })
 
-vim.keymap.set({"n", "i"}, "<C-S-N>", function() vim.cmd("tabnext") end, { desc = "Go to next tab" } )
-vim.keymap.set({"n", "i"}, "<C-S-P>", function() vim.cmd("tabprevious") end, { desc = "Go to previous tab" } )
-vim.keymap.set({"n"}, "<C-S-W>", function() vim.cmd("tabclose") end, { desc = "Close current tab" } )
+vim.keymap.set({ "n", "i" }, "<C-S-N>", function() vim.cmd("tabnext") end, { desc = "Go to next tab" })
+vim.keymap.set({ "n", "i" }, "<C-S-P>", function() vim.cmd("tabprevious") end, { desc = "Go to previous tab" })
+vim.keymap.set({ "n" }, "<C-S-W>", function() vim.cmd("tabclose") end, { desc = "Close current tab" })
