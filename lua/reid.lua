@@ -134,6 +134,7 @@ vim.opt.hlsearch = true
 vim.g.mapleader = " "
 vim.opt.splitright = true
 vim.opt.splitbelow = true
+vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions,resize"
 
 -- function ToggleBackgroundColor()
 --   local setting_1 = 2632756
@@ -152,14 +153,19 @@ vim.opt.splitbelow = true
 
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
-local function RunPython()
+local function RunPython(background)
   vim.cmd.write()
   local script_path = vim.fn.expand("%"):gsub(" ", "\\ ")
-  -- vim.cmd("TermExec cmd=\"python " .. script_path .. "\"")
-  toggleterm.exec("clear")
-  toggleterm.exec("python \"" .. script_path .. "\"")
+  local command = "python \"" .. script_path .. "\""
+  if background then
+    vim.fn.jobstart(command)
+  else
+    toggleterm.exec("clear")
+    toggleterm.exec(command)
+  end
 end
 vim.keymap.set("n", "<leader>rp", RunPython, { desc = "[R]un [P]ython" })
+vim.keymap.set("n", "<leader>brp", function() RunPython(true) end, { desc = "[B]ackground [R]un [P]ython" })
 -- vim.keymap.set("n", "<leader>rp", function() vim.cmd.write() vim.cmd("TermExec cmd=\"python %\"") end, { desc = "[R]un [P]ython" } )
 vim.keymap.set("n", "<leader>cb", function()
   vim.cmd.write()
