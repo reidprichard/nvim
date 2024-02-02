@@ -161,6 +161,28 @@ vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,
 --
 -- vim.api.nvim_create_autocmd({"FocusGained", "FocusLost"}, { callback = ToggleBackgroundColor } )
 
+local function FloatErrorMessage(title, error_text)
+  -- local width = vim.api.nvim_win_get_width(0)
+  -- local height = vim.api.nvim_win_get_height(0)
+  local width = vim.o.columns
+  local height = vim.o.lines
+  local opts = {
+    relative = 'editor',
+    width = width * 0.5,
+    col = width * 0.25,
+    height = math.floor(height * 0.25),
+    row = height * 0.5,
+    style = "minimal",
+    border = "single",
+    title = title,
+    title_pos = "center",
+  }
+  local buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_buf_set_lines(buf, 1, 1, false, error_text)
+  -- vim.lsp.util.open_floating_preview(error_text, "", opts)
+  vim.api.nvim_open_win(buf, true, opts)
+end
+
 -- ************** Key mappings ************
 
 
@@ -171,7 +193,11 @@ local function RunPython(background)
   local script_path = vim.fn.expand("%"):gsub(" ", "\\ ")
   local command = "python \"" .. script_path .. "\""
   if background then
-    vim.fn.jobstart(command, { on_exit = function() print("Done executing Python.") end })
+    vim.fn.jobstart(command, {
+      on_exit = function() print("Done executing Python.") end,
+      on_stderr = function(chan_id, data, name) FloatErrorMessage("Python Error", data) end,
+      stderr_buffered = true
+    })
   else
     toggleterm.exec("clear")
     toggleterm.exec(command)
@@ -328,26 +354,6 @@ vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help)
 -- " optional: change highlight, otherwise Pmenu is used
 -- call nvim_win_set_option(win, 'winhl', 'Normal:MyHighlight')
 
-local function GitCommitError(error_text)
-  -- local width = vim.api.nvim_win_get_width(0)
-  -- local height = vim.api.nvim_win_get_height(0)
-  local width = vim.o.columns
-  local height = vim.o.lines
-  local opts = {
-    relative = 'editor',
-    width = width * 0.5,
-    col = width * 0.25,
-    height = math.floor(height * 0.25),
-    row = height * 0.5,
-    style = "minimal",
-    border = "single",
-    title = "Git Commit Error",
-    title_pos = "center",
-  }
-  local buf = vim.api.nvim_create_buf(false, true)
-  vim.api.nvim_buf_set_lines(buf, 1, 1, false, error_text)
-  vim.api.nvim_open_win(buf, true, opts)
-end
 
 local function GitAddCommit()
   require("dressing.config").update({ input = { relative = "editor" } })
@@ -363,8 +369,10 @@ local function GitAddCommit()
         input = input:gsub('"', '\\"')
       end
       vim.fn.jobstart("git add . && git commit -m \"" .. input .. "\"",
-        { on_stderr = function(chan_id, data, name) GitCommitError(data) end,
-        stderr_buffered = true})
+        {
+          on_stderr = function(chan_id, data, name) FloatErrorMessage("Git Commit Error", data) end,
+          stderr_buffered = true
+        })
     end
   )
   require("dressing.config").update({ input = { relative = "cursor" } })
