@@ -283,9 +283,6 @@ local function TelescopeLiveGrep()
   end
 end
 
--- ** Search all buffers' contents **
-vim.keymap.set("n", "<leader>sb", TelescopeLiveGrep, { desc = "[S]earch [B]uffers" })
-
 -- ** Move selected lines up/down **
 vim.keymap.set("n", "<M-j>", function() vim.cmd(":m+1") end, { desc = "Move selected line down one line" })
 vim.keymap.set("n", "<M-k>", function() vim.cmd(":m-2") end, { desc = "Move selected line up one line" })
@@ -339,5 +336,3 @@ vim.keymap.set("n", "<leader>gp", function() toggleterm.exec("git push origin ma
 
 vim.keymap.set("n", "<leader>ss", require("telescope.builtin").symbols, { desc = "[S]earch [S]ymbols"})
 vim.keymap.set("i", "<C-i>", require("telescope.builtin").symbols, { desc = "[I]nsert symbol"})
-
-vim.keymap.set("n", "<leader>d", '"_d', { desc = "[D]elete to blackhole register" })
