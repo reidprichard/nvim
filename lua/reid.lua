@@ -132,6 +132,8 @@ vim.opt.wrap = false
 vim.opt.number = true
 vim.opt.hlsearch = true
 vim.g.mapleader = " "
+vim.opt.splitright = true
+vim.opt.splitbelow = true
 
 -- function ToggleBackgroundColor()
 --   local setting_1 = 2632756

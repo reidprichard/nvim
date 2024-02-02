@@ -279,15 +279,15 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
+local telescope_actions = require('telescope.actions')
 require('telescope').setup {
   defaults = {
     mappings = {
       i = {
         ['<C-u>'] = false,
-        ['<C-d>'] = require('telescope.actions').delete_buffer,
-      },
-      n = {
-        ['<C-d>'] = require('telescope.actions').delete_buffer,
+        ['<C-d>'] = telescope_actions.delete_buffer,
+        ['<C-CR>'] = telescope_actions.file_tab,
+        ['<S-CR>'] = telescope_actions.file_vsplit,
       },
     },
     path_display = { 'smart' },
@@ -295,11 +295,8 @@ require('telescope').setup {
   pickers = {
     help_tags = {
       mappings = {
-        n = {
-          ['<CR>'] = require('telescope.actions').file_tab
-        },
         i = {
-          ['<CR>'] = require('telescope.actions').file_tab
+          ['<CR>'] = telescope_actions.file_tab
         },
       }
     }
