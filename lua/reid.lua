@@ -164,6 +164,9 @@ vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,
 local function FloatErrorMessage(title, error_text)
   -- local width = vim.api.nvim_win_get_width(0)
   -- local height = vim.api.nvim_win_get_height(0)
+  -- local chars = 0
+  -- for str in error_text do chars = chars + str.len() end
+  -- if chars == 0 then return end
   local width = vim.o.columns
   local height = vim.o.lines
   local opts = {
@@ -190,13 +193,12 @@ vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 local function RunPython(background)
   vim.cmd.write()
+  print("Running...")
   local script_path = vim.fn.expand("%"):gsub(" ", "\\ ")
   local command = "python \"" .. script_path .. "\""
   if background then
     vim.fn.jobstart(command, {
       on_exit = function() print("Done executing Python.") end,
-      on_stderr = function(chan_id, data, name) FloatErrorMessage("Python Error", data) end,
-      stderr_buffered = true
     })
   else
     toggleterm.exec("clear")
