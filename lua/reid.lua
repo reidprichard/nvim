@@ -372,9 +372,19 @@ local function GitAddCommit()
       end
       vim.fn.jobstart("git add . && git commit -m '" .. input .. "'",
         {
+          on_exit = function() print("Commit successful.") end,
           on_stderr = function(chan_id, data, name)
-            if data == nil or string.len(data) == 0 then return end
-            FloatErrorMessage("Git Commit Error", data)
+            local error_len = 0
+            for _, value in ipairs(data) do
+              if value ~= nil then
+                error_len = error_len + string.len(value)
+              end
+            end
+            if error_len == 0 then
+              return
+            else
+              FloatErrorMessage("Git Commit Error", data)
+            end
           end,
           stderr_buffered = true
         })
