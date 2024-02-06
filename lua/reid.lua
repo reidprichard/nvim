@@ -411,7 +411,6 @@ end
 vim.keymap.set("n", "<leader>gc", GitAddCommit, { desc = "[G]it [C]ommit: add and commit current directory" })
 vim.keymap.set("n", "<leader>gp", function() toggleterm.exec("git push origin main") end,
   { desc = "[G]it [P]ush origin main" })
-<<<<<<< HEAD
 vim.keymap.set("n", "<leader>gu",
   function()
     vim.ui.input({ prompt = "Reset the last commit? [Y]es/[N]o" },
@@ -424,10 +423,9 @@ vim.keymap.set("n", "<leader>gu",
         end
       end
     )
-  end,
-=======
+  end
+)
 vim.keymap.set("n", "<leader>gu", function() toggleterm.exec("git reset --soft HEAD~1") end,
->>>>>>> 8ff5b9caf1c434d4fd65cfb02f1ce3d4e25b7383
   { desc = "[G]it [U]ndo: undo last commit" })
 -- function ResizeWindow(offset, window)
 --   -- if window == nil then
