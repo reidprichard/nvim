@@ -372,7 +372,10 @@ local function GitAddCommit()
       end
       vim.fn.jobstart("git add . && git commit -m '" .. input .. "'",
         {
-          on_stderr = function(chan_id, data, name) FloatErrorMessage("Git Commit Error", data) end,
+          on_stderr = function(chan_id, data, name)
+            if data == nil or string.len(data) == 0 then return end
+            FloatErrorMessage("Git Commit Error", data)
+          end,
           stderr_buffered = true
         })
     end
@@ -387,7 +390,7 @@ vim.keymap.set("n", "<leader>gu",
   function()
     vim.ui.input({ prompt = "Reset the last commit? [Y]es/[N]o" },
       function(input)
-        if input=="y" or input=="Y" or input=="yes" or input=="Yes" then
+        if input == "y" or input == "Y" or input == "yes" or input == "Yes" then
           toggleterm.exec("git reset --soft HEAD~1")
         else
           print("Reset cancelled.")
