@@ -366,11 +366,11 @@ local function GitAddCommit()
         return
       end
       if Platform == "Windows_NT" then
-        input = input:gsub('"', '""')
+        input = input:gsub("'", "''")
       else
-        input = input:gsub('"', '\\"')
+        input = input:gsub("'", "\\'")
       end
-      vim.fn.jobstart("git add . && git commit -m \"" .. input .. "\"",
+      vim.fn.jobstart("git add . && git commit -m '" .. input .. "'",
         {
           on_stderr = function(chan_id, data, name) FloatErrorMessage("Git Commit Error", data) end,
           stderr_buffered = true
@@ -379,9 +379,24 @@ local function GitAddCommit()
   )
   require("dressing.config").update({ input = { relative = "cursor" } })
 end
+
 vim.keymap.set("n", "<leader>gc", GitAddCommit, { desc = "[G]it [C]ommit: add and commit current directory" })
 vim.keymap.set("n", "<leader>gp", function() toggleterm.exec("git push origin main") end,
   { desc = "[G]it [P]ush origin main" })
+vim.keymap.set("n", "<leader>gu",
+  function()
+    vim.ui.input({ prompt = "Reset the last commit? [Y]es/[N]o" },
+      function(input)
+        if input=="y" or input=="Y" or input=="yes" or input=="Yes" then
+          toggleterm.exec("git reset --soft HEAD~1")
+        else
+          print("Reset cancelled.")
+          return
+        end
+      end
+    )
+  end,
+  { desc = "[G]it [U]ndo: undo last commit" })
 -- function ResizeWindow(offset, window)
 --   -- if window == nil then
 --   --   window = 0
