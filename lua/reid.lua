@@ -199,6 +199,21 @@ local function RunPython(background)
   if background then
     vim.fn.jobstart(command, {
       on_exit = function() print("Done executing Python.") end,
+      on_stderr = function(chan_id, data, name)
+        local error_len = 0
+        for _, value in ipairs(data) do
+          if value ~= nil then
+            error_len = error_len + string.len(value)
+          end
+        end
+        if error_len == 0 then
+          return
+        else
+          FloatErrorMessage("Python error", data)
+        end
+      end,
+      stderr_buffered = true
+
     })
   else
     toggleterm.exec("clear")
