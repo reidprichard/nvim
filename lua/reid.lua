@@ -271,7 +271,7 @@ vim.keymap.set({ "n", "v" }, "<leader>lf", function() vim.lsp.buf.format { timeo
 
 -- ** LuaSnip setup **
 local ls = require("luasnip")
-vim.keymap.set({ "i", "n" }, "<C-I>", function() ls.expand() end, { desc = "[I]nsert Snippet" })
+vim.keymap.set({"n", "i"}, "<C-S>", function() ls.expand() end, { desc = "Insert [S]nippet" })
 -- vim.keymap.set({"i", "s"}, "<C-L>", function() ls.jump( 1) end, {silent = true})
 -- vim.keymap.set({"i", "s"}, "<C-J>", function() ls.jump(-1) end, {silent = true})
 
