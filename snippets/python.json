@@ -63,7 +63,7 @@
             ""
         ]
     }
-    "code.interact": {
+    "interact": {
         "prefix": "interact",
         "body": "code.interact(local=locals())"
     }
