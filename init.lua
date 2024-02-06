@@ -42,6 +42,8 @@ P.S. You can delete this when you're done too. It's your config now :)
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+vim.g.Unicode_no_default_mappings = true
+
 
 local theme = 'onedark'
 local theme_repo = 'navarasu/onedark.nvim'
@@ -343,7 +345,7 @@ require('nvim-treesitter.configs').setup {
   highlight = { enable = true },
   indent = {
     enable = true,
-    disable = { 'python' },
+    -- disable = { 'python' },
   },
   incremental_selection = {
     enable = true,

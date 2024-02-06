@@ -1,6 +1,6 @@
 if vim.g.neovide then
   -- vim.g.neovide_transparency = 0.99
-  vim.g.neovide_scroll_animation_length = 0.25
+  vim.g.neovide_scroll_animation_length = 0.2
   vim.g.neovide_scroll_animation_far_lines = 0
   vim.g.neovide_refresh_rate = 144
   vim.g.neovide_refresh_rate_idle = 60
@@ -120,7 +120,7 @@ wk.register({
     g = { name = "[G]it" },
     l = { name = "[L]SP" },
     r = { name = "[R]un" },
-    s = { name = "[S]earch" },
+    s = { name = "[S]earch, [S]ession" },
     t = { name = "[T]oggle" },
     w = { name = "[W]orkspace" }, -- This one doesn't work for some reason?
   }
@@ -147,7 +147,7 @@ vim.opt.hlsearch = true
 vim.g.mapleader = " "
 vim.opt.splitright = true
 vim.opt.splitbelow = true
-vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions,resize"
+-- vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions,resize"
 
 -- function ToggleBackgroundColor()
 --   local setting_1 = 2632756
@@ -393,7 +393,7 @@ vim.keymap.set("n", "<leader>gp", function() toggleterm.exec("git push origin ma
 -- vim.keymap.set("t", "<C-.", function() ResizeWindow(5) end)
 -- vim.keymap.set("t", "<C-,", function() ResizeWindow(5) end)
 
-vim.keymap.set("n", "<leader>ss", require("telescope.builtin").symbols, { desc = "[S]earch [S]ymbols" })
+-- vim.keymap.set("n", "<leader>ss", require("telescope.builtin").symbols, { desc = "[S]earch [S]ymbols" })
 vim.keymap.set("i", "<C-i>", require("telescope.builtin").symbols, { desc = "[I]nsert symbol" })
 
 vim.keymap.set({ "n", "i" }, "<C-S-N>", function() vim.cmd("tabnext") end, { desc = "Go to next tab" })
