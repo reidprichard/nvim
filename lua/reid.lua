@@ -366,11 +366,11 @@ local function GitAddCommit()
         return
       end
       if Platform == "Windows_NT" then
-        input = input:gsub('"', '""')
+        input = input:gsub("'", "''")
       else
-        input = input:gsub('"', '\\"')
+        input = input:gsub("'", "\\'")
       end
-      vim.fn.jobstart("git add . && git commit -m \"" .. input .. "\"",
+      vim.fn.jobstart("git add . && git commit -m '" .. input .. "'",
         {
           on_stderr = function(chan_id, data, name) FloatErrorMessage("Git Commit Error", data) end,
           stderr_buffered = true
@@ -382,6 +382,8 @@ end
 vim.keymap.set("n", "<leader>gc", GitAddCommit, { desc = "[G]it [C]ommit: add and commit current directory" })
 vim.keymap.set("n", "<leader>gp", function() toggleterm.exec("git push origin main") end,
   { desc = "[G]it [P]ush origin main" })
+vim.keymap.set("n", "<leader>gu", function() toggleterm.exec("git reset --soft HEAD~1") end,
+  { desc = "[G]it [U]ndo: undo last commit" })
 -- function ResizeWindow(offset, window)
 --   -- if window == nil then
 --   --   window = 0
