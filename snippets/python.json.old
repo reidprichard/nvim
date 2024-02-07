@@ -1,6 +1,6 @@
 {
-    "Main": {
-        "prefix": "__name__ is __main__",
+    "if __name__ is __main__": {
+        "prefix": "main",
         "body": [
             "def main() -> None:",
             "\tpass",
@@ -28,14 +28,14 @@
         "description": "Inserts the path the the FLUID Utilties folder."
     },
     "Python version check": {
-        "prefix": "version",
+        "prefix": "python_version_check",
         "body": [
             "if sys.version_info().major < 3:",
             "    raise Warning(f'Using Python version {sys.version_info().major}. Code may not work as intended.')"
         ]
     },
     "Script version check": {
-        "prefix": "script_version",
+        "prefix": "version_check",
         "body": [
             "try:",
             "    filename = os.path.basename(__file__)",

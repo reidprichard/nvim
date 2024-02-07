@@ -100,7 +100,7 @@ require('onedark').setup {
 }
 vim.keymap.set("n", "<leader>ts", require("onedark").toggle, { desc = "[T]oggle [S]tyle" })
 
-require("luasnip.loaders.from_vscode").lazy_load({ paths = { "./snippets/" } })
+require("luasnip.loaders.from_snipmate").lazy_load({ paths = { "./snippets/" } })
 
 -- require("lspconfig").pyright.setup {
 --   settings = {

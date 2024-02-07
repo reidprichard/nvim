@@ -1,0 +1,46 @@
+snippet if __name__ is __main__
+    def main() -> None:
+        pass
+    
+    if __name__==\"__main__\":
+        main()
+
+snippet Home path
+    from pathlib import Path
+    home = str(Path.home()).replace('\\\\\\','/') + '/' # This is C:/Users/<username>; it avoids path issues when switching between computers
+
+snippet Utilities path
+    import sys
+    sys.path.insert(0, f'{home}/Liberty University/Group-Wayne Strasser Research - Documents/Utilities')
+
+snippet Python version check
+    if sys.version_info().major < 3:
+        raise Warning(f'Using Python version {sys.version_info().major}. Code may not work as intended.')
+
+snippet Script version check
+    try:
+        filename = os.path.basename(__file__)
+        script_name = filename.removesuffix('.py')
+        script_dir = os.path.dirname(os.path.realpath(__file__)) # Path of current file
+        version_match = re.match(r'^yp\\.(\\d+)(\\S+)$', filename[::-1]) # Reverses the filename since we only care about what's at the end (version number)
+        if version_match:
+            file_name = version_match.groups()[1][::-1] # Re-reverses the group
+            version = int(version_match.groups()[0][::-1]) # Ditto
+        else:
+            file_name = filename
+            version = 0 # If no version number, assume it's version 0
+    
+        # Regex matching all other versions of this file
+        other_version_re = re.compile(f'^{file_name}(\\d+).py$') 
+        # List of all files in the current directory
+        files = [os.path.basename(f'{script_dir}/{x}') for x in os.listdir(script_dir)]
+        #  List of all files in current directory matching other_version_re
+        other_versions = [int(other_version_re.match(x).groups()[0]) for x in files if other_version_re.match(x)] # type: ignore[union-attr]
+    
+        if max(other_versions) > version:
+            warnings.warn(f'{filename} is outdated. The most current version is {script_name}{max(other_versions)}.py.')
+    except: # This is lazy, but I'm not sure what individual exceptions I might need to handle
+        print(f'{__file__}' + ' version check failed')
+
+snippet interact
+    code.interact(local=locals())
