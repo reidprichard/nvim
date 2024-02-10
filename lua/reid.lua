@@ -448,17 +448,23 @@ vim.keymap.set({ "n" }, "<C-S-W>", function() vim.cmd("tabclose") end, { desc = 
 function PythonTypeIgnore()
   local line_number = vim.api.nvim_win_get_cursor(0)[1]
   local line_errors = vim.diagnostic.get(0, { lnum = line_number-1, severity = vim.diagnostic.severity.ERROR } )
-  local error_codes = {}
-  local error_count = 0
+  local unique_error_codes = {}
   for error_num, error in ipairs(line_errors) do
     if error.source == "mypy" then
-      table.insert(error_codes, error.code)
-      error_count = error_count + 1
+      unique_error_codes[error.code] = true
     end
   end
+  -- Surely there's a better way of accomplishing this?
+  local error_count = 0
+  local error_codes_table = {}
+  for key,_ in pairs(unique_error_codes) do
+    table.insert(error_codes_table, key)
+    error_count = error_count + 1
+  end
+
   if error_count > 0 then
     local line_text = vim.api.nvim_get_current_line()
-    line_text = line_text .. "  # type: ignore[" .. table.concat(error_codes, ", ") .. "]"
+    line_text = line_text .. "  # type: ignore[" .. table.concat(error_codes_table, ", ") .. "]"
     vim.api.nvim_set_current_line(line_text)
   end
 end
