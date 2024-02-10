@@ -141,6 +141,7 @@ vim.opt.shiftwidth = 4
 vim.opt.inde = "" -- Had to do this to prevent weird spacing being added when I typed "else" in a cpp file?
 vim.opt.indentexpr = ""
 vim.opt.guifont = "CaskaydiaCove Nerd Font:h18"
+-- vim.opt.guifont = "Consolas:h18"
 vim.opt.wrap = false
 vim.opt.number = true
 vim.opt.hlsearch = true
@@ -449,7 +450,7 @@ function PythonTypeIgnore()
   local line_number = vim.api.nvim_win_get_cursor(0)[1]
   local line_errors = vim.diagnostic.get(0, { lnum = line_number-1, severity = vim.diagnostic.severity.ERROR } )
   local unique_error_codes = {}
-  for error_num, error in ipairs(line_errors) do
+  for _, error in ipairs(line_errors) do
     if error.source == "mypy" then
       unique_error_codes[error.code] = true
     end

@@ -54,22 +54,23 @@ return {
 			require("toggleterm").setup(opts)
 		end
 	},
-	-- {
-	-- 	"ray-x/lsp_signature.nvim",
-	-- 	event = "VeryLazy",
-	-- 	opts = {
-	-- 		-- floating_window_above_cur_line = false,
-	-- 		floating_window_off_x = 6,
-	-- 		-- transparency = 0.9,
-	-- 		toggle_key = '<C-h>',
-	-- 		-- toggle_key_flip_floatwin_setting = true,
-	-- 		-- bind = true,
-	-- 		-- handler_opts = {
-	-- 		-- 	border = "rounded"
-	-- 		-- }
-	-- 	},
-	-- 	config = function(_, opts) require('lsp_signature').setup(opts) end
-	-- },
+	{
+		"ray-x/lsp_signature.nvim",
+		event = "VeryLazy",
+		opts = {
+			-- floating_window_above_cur_line = false,
+			-- floating_window_off_x = 6,
+			transparency = 0.9,
+			toggle_key = '<C-h>',
+			toggle_key_flip_floatwin_setting = true,
+			bind = true,
+			handler_opts = {
+				border = "rounded"
+			},
+			hint_prefix = "",
+		},
+		config = function(_, opts) require('lsp_signature').setup(opts) end
+	},
 	{
 		"Shatur/neovim-session-manager",
 		opts = {
@@ -79,14 +80,6 @@ return {
 	{
 		"MDeiml/tree-sitter-markdown",
 	},
-	-- {
-	-- 	"karb94/neoscroll.nvim",
-	-- 	opts = {
-	-- 		mappings = { '<C-u>', '<C-d>', '<C-b>', '<C-f>',
-	-- 			'<C-y>', '<C-e>', 'zt', 'zz', 'zb' },
-	-- 	},
-	-- 	config = function(_, opts) require("neoscroll").setup(opts) end
-	-- },
 	-- {
 	--   "pocco81/auto-save.nvim"
 	-- }
