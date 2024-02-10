@@ -445,9 +445,21 @@ vim.keymap.set({ "n", "i" }, "<C-S-N>", function() vim.cmd("tabnext") end, { des
 vim.keymap.set({ "n", "i" }, "<C-S-P>", function() vim.cmd("tabprevious") end, { desc = "Go to previous tab" })
 vim.keymap.set({ "n" }, "<C-S-W>", function() vim.cmd("tabclose") end, { desc = "Close current tab" })
 
--- function PythonTypeIgnore()
---   local line_number = vim.api.nvim_win_get_cursor(0)[1]
---   local line_errors = vim.diagnostic.get(0, { lnum = line_number-1, severity = vim.diagnostic.severity.ERROR } )
---
--- end
-vim.keymap.set("n", "<leader>lpi", function() end, { desc = "[L]SP: [P]ython Type [I]gnore" })
+function PythonTypeIgnore()
+  local line_number = vim.api.nvim_win_get_cursor(0)[1]
+  local line_errors = vim.diagnostic.get(0, { lnum = line_number-1, severity = vim.diagnostic.severity.ERROR } )
+  local error_codes = {}
+  local error_count = 0
+  for error_num, error in ipairs(line_errors) do
+    if error.source == "mypy" then
+      table.insert(error_codes, error.code)
+      error_count = error_count + 1
+    end
+  end
+  if error_count > 0 then
+    local line_text = vim.api.nvim_get_current_line()
+    line_text = line_text .. "  # type: ignore[" .. table.concat(error_codes, ", ") .. "]"
+    vim.api.nvim_set_current_line(line_text)
+  end
+end
+vim.keymap.set("n", "<leader>lpi", PythonTypeIgnore, { desc = "[L]SP: [P]ython Type [I]gnore" })
