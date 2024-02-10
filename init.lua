@@ -466,11 +466,11 @@ local servers = {
   -- clangd = {},
   -- gopls = {},
   pyright = {
-    -- python = {
-    --   analysis = {
-    --     typeCheckingMode = "off",
-    --   }
-    -- }
+    python = {
+      analysis = {
+        typeCheckingMode = "off",
+      }
+    }
   },
   -- rust_analyzer = {},
   -- tsserver = {},

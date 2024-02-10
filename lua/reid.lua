@@ -194,7 +194,7 @@ vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 local function RunPython(background)
   vim.cmd.write()
   print("Running...")
-  local script_path = vim.fn.expand("%"):gsub(" ", "\\ ")
+  local script_path = vim.fn.expand("%:p"):gsub(" ", "\\ ")
   local command = "python \"" .. script_path .. "\""
   if background then
     vim.fn.jobstart(command, {
@@ -216,7 +216,7 @@ local function RunPython(background)
 
     })
   else
-    toggleterm.exec("clear")
+    -- toggleterm.exec("clear")
     toggleterm.exec(command)
   end
 end
@@ -271,7 +271,7 @@ vim.keymap.set({ "n", "v" }, "<leader>lf", function() vim.lsp.buf.format { timeo
 
 -- ** LuaSnip setup **
 local ls = require("luasnip")
-vim.keymap.set({"n", "i"}, "<C-S>", function() ls.expand() end, { desc = "Insert [S]nippet" })
+vim.keymap.set({ "n", "i" }, "<C-S>", function() ls.expand() end, { desc = "Insert [S]nippet" })
 -- vim.keymap.set({"i", "s"}, "<C-L>", function() ls.jump( 1) end, {silent = true})
 -- vim.keymap.set({"i", "s"}, "<C-J>", function() ls.jump(-1) end, {silent = true})
 
@@ -358,8 +358,8 @@ vim.keymap.set("v", "<M-j>", ":m '>+1<CR>gv=gv", { desc = "Move selected lines d
 vim.keymap.set("v", "<M-k>", ":m '<-2<CR>gv=gv", { desc = "Move selected lines up one line" })
 
 -- The below must be done twice - <C-_> is for in a terminal, while <C-/> is for in a GUI. Both map to Ctrl-/
-vim.keymap.set("n", "<C-_>", function() vim.cmd(":noh") end, { desc = "Disable search highlighting" })
-vim.keymap.set("n", "<C-/>", function() vim.cmd(":noh") end, { desc = "Disable search highlighting" })
+vim.keymap.set({ "n", "i", "t" }, "<C-_>", function() vim.cmd(":noh") end, { desc = "Disable search highlighting" })
+vim.keymap.set({ "n", "i", "t" }, "<C-/>", function() vim.cmd(":noh") end, { desc = "Disable search highlighting" })
 
 vim.keymap.set("n", "<leader>tb", function() vim.cmd(":ToggleAlternate") end,
   { desc = "[T]oggle [B]oolean (rmagatti/alternate-toggler)" })
@@ -444,3 +444,10 @@ vim.keymap.set("i", "<C-i>", require("telescope.builtin").symbols, { desc = "[I]
 vim.keymap.set({ "n", "i" }, "<C-S-N>", function() vim.cmd("tabnext") end, { desc = "Go to next tab" })
 vim.keymap.set({ "n", "i" }, "<C-S-P>", function() vim.cmd("tabprevious") end, { desc = "Go to previous tab" })
 vim.keymap.set({ "n" }, "<C-S-W>", function() vim.cmd("tabclose") end, { desc = "Close current tab" })
+
+-- function PythonTypeIgnore()
+--   local line_number = vim.api.nvim_win_get_cursor(0)[1]
+--   local line_errors = vim.diagnostic.get(0, { lnum = line_number-1, severity = vim.diagnostic.severity.ERROR } )
+--
+-- end
+vim.keymap.set("n", "<leader>lpi", function() end, { desc = "[L]SP: [P]ython Type [I]gnore" })
