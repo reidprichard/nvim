@@ -383,7 +383,7 @@ local function GitAddCommit()
       if Platform == "Windows_NT" then
         input = input:gsub("'", "''")
       else
-        input = input:gsub("'", "\\'")
+        input = input:gsub('"', '\\"')
       end
       vim.fn.jobstart("git add . && git commit -m '" .. input .. "'",
         {
@@ -468,4 +468,5 @@ function PythonTypeIgnore()
     vim.api.nvim_set_current_line(line_text)
   end
 end
-vim.keymap.set("n", "<leader>lpi", PythonTypeIgnore, { desc = "[L]SP: [P]ython Type [I]gnore" })
+vim.keymap.set("n", "<leader>pti", PythonTypeIgnore, { desc = "[P]ython [T]ype [I]gnore" })
+vim.keymap.set("n", "<leader>psv", require("swenv.api").pick_venv, { desc = "[P]ython [S]elect [V]env" } )

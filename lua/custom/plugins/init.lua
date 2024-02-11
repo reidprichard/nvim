@@ -177,4 +177,11 @@ return {
 	{
 		"nvim-telescope/telescope-symbols.nvim"
 	},
+	{
+		"AckslD/swenv.nvim",
+		config = function()
+			require("swenv").setup()
+			require("swenv.api").set_venv("default")
+		end,
+	},
 }
