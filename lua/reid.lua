@@ -381,11 +381,11 @@ local function GitAddCommit()
         return
       end
       if Platform == "Windows_NT" then
-        input = input:gsub("'", "''")
+        input = "'" .. input:gsub("'", "''") .. "'"
       else
-        input = input:gsub('"', '\\"')
+        input = '"' .. input:gsub('"', '\\"') .. '"'
       end
-      vim.fn.jobstart("git add . && git commit -m '" .. input .. "'",
+      vim.fn.jobstart("git add . && git commit -m '" .. input,
         {
           on_exit = function() print("Commit successful.") end,
           on_stderr = function(chan_id, data, name)
