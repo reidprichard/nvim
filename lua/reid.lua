@@ -382,11 +382,11 @@ local function GitAddCommit()
         return
       end
       if Platform == "Windows_NT" then
-        input = input:gsub("'", "''")
+        input = "'" .. input:gsub("'", "''") .. "'"
       else
-        input = input:gsub("'", "\\'")
+        input = '"' .. input:gsub('"', '\\"') .. '"'
       end
-      vim.fn.jobstart("git add . && git commit -m '" .. input .. "'",
+      vim.fn.jobstart("git add . && git commit -m " .. input,
         {
           on_exit = function() print("Commit successful.") end,
           on_stderr = function(chan_id, data, name)
@@ -469,4 +469,9 @@ function PythonTypeIgnore()
     vim.api.nvim_set_current_line(line_text)
   end
 end
-vim.keymap.set("n", "<leader>lpi", PythonTypeIgnore, { desc = "[L]SP: [P]ython Type [I]gnore" })
+vim.keymap.set("n", "<leader>pti", PythonTypeIgnore, { desc = "[P]ython [T]ype [I]gnore" })
+vim.keymap.set("n", "<leader>psv", require("swenv.api").pick_venv, { desc = "[P]ython [S]elect [V]env" } )
+
+vim.keymap.set("n", "<leader>dg", function() vim.cmd("DogeGenerate") end, { desc = "[D]ocumentation [G]enerate" } )
+vim.g.doge_python_settings = {single_quotes = 0, omit_redundant_param_types = 0}
+vim.g.doge_doc_standard_python = "numpy"
