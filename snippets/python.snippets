@@ -43,4 +43,4 @@ snippet Script version check
         print(f'{__file__}' + ' version check failed')
 
 snippet interact
-    code.interact(local=locals())
+    code.interact(local=dict(global(), **locals()))
