@@ -27,9 +27,9 @@ return {
 			shell = toggleterm_shell,
 			direction = "float",
 			float_opts = {
-				width = function() return math.floor(vim.api.nvim_win_get_width(0)*0.99) end,
+				width = function() return math.floor(vim.api.nvim_win_get_width(0) * 0.99) end,
 				col = 1,
-				height = function() return math.floor(vim.api.nvim_win_get_height(0)*0.3) end,
+				height = function() return math.floor(vim.api.nvim_win_get_height(0) * 0.3) end,
 				row = function() return vim.api.nvim_win_get_height(0) end,
 				border = "single",
 				winblend = 5,
@@ -184,4 +184,16 @@ return {
 			require("swenv.api").set_venv("default")
 		end,
 	},
+	-- {
+	-- 	"danymat/neogen",
+	-- 	version = "*",
+	-- 	enabled = true,
+	-- 	config = function(opts)
+	-- 		require("neogen").setup(opts)
+	-- 	end,
+	-- }
+	{
+		"kkoomen/vim-doge",
+		build = function() vim.cmd("call doge#install()") end,
+	}
 }

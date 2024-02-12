@@ -470,3 +470,7 @@ function PythonTypeIgnore()
 end
 vim.keymap.set("n", "<leader>pti", PythonTypeIgnore, { desc = "[P]ython [T]ype [I]gnore" })
 vim.keymap.set("n", "<leader>psv", require("swenv.api").pick_venv, { desc = "[P]ython [S]elect [V]env" } )
+
+vim.keymap.set("n", "<leader>dg", function() vim.cmd("DogeGenerate") end, { desc = "[D]ocumentation [G]enerate" } )
+vim.g.doge_python_settings = {single_quotes = 0, omit_redundant_param_types = 0}
+vim.g.doge_doc_standard_python = "numpy"
