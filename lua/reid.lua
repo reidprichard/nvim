@@ -385,7 +385,7 @@ local function GitAddCommit()
       else
         input = '"' .. input:gsub('"', '\\"') .. '"'
       end
-      vim.fn.jobstart("git add . && git commit -m '" .. input,
+      vim.fn.jobstart("git add . && git commit -m " .. input,
         {
           on_exit = function() print("Commit successful.") end,
           on_stderr = function(chan_id, data, name)
