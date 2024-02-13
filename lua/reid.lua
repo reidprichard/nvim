@@ -57,7 +57,7 @@ local ahk2_configs = {
     vim.fn.expand("$HOME/vscode-autohotkey2-lsp/server/dist/server.js"),
     "--stdio"
   },
-  filetypes = { "ahk", "autohotkey", "ah2" },
+  filetypes = { "ahk", "autohotkey" },
   init_options = {
     locale = "en-us",
     AutoLibInclude = "Disabled",
