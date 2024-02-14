@@ -44,10 +44,6 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.g.Unicode_no_default_mappings = true
 
-
-local theme = 'onedark'
-local theme_repo = 'navarasu/onedark.nvim'
-
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
@@ -138,22 +134,13 @@ require('lazy').setup({
   },
 
   {
-    -- Theme inspired by Atom
-    theme_repo,
-    priority = 1000,
-    config = function()
-      vim.cmd.colorscheme(theme)
-    end,
-  },
-
-  {
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
     -- See `:help lualine.txt`
     opts = {
       options = {
         icons_enabled = true,
-        theme = theme,
+        -- theme = theme,
         component_separators = '|',
         section_separators = '',
       }
@@ -288,8 +275,8 @@ require('telescope').setup {
       i = {
         ['<C-u>'] = false,
         ['<C-d>'] = telescope_actions.delete_buffer,
-        ['<C-CR>'] = telescope_actions.file_tab,
-        ['<S-CR>'] = telescope_actions.file_vsplit,
+        ['<C-t>'] = telescope_actions.file_tab,
+        ['<C-s>'] = telescope_actions.file_vsplit,
       },
     },
     path_display = { 'smart' },
@@ -301,6 +288,9 @@ require('telescope').setup {
           ['<CR>'] = telescope_actions.file_tab
         },
       }
+    },
+    colorscheme = {
+      enable_preview = true
     }
   }
 }

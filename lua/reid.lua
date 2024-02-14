@@ -95,8 +95,8 @@ configs["ahk2"] = { default_config = ahk2_configs }
 lspconfig.ahk2.setup({})
 
 require('onedark').setup {
-  -- toggle_style_key = '<leader>ts',
-  toggle_style_list = { 'dark', 'cool', 'deep', 'warm' }
+  toggle_style_key = '<leader>to',
+  -- toggle_style_list = { 'dark', 'cool', 'deep', 'warm' }
 }
 vim.keymap.set("n", "<leader>ts", require("onedark").toggle, { desc = "[T]oggle [S]tyle" })
 
@@ -475,3 +475,16 @@ vim.keymap.set("n", "<leader>psv", require("swenv.api").pick_venv, { desc = "[P]
 vim.keymap.set("n", "<leader>dg", function() vim.cmd("DogeGenerate") end, { desc = "[D]ocumentation [G]enerate" } )
 vim.g.doge_python_settings = {single_quotes = 0, omit_redundant_param_types = 0}
 vim.g.doge_doc_standard_python = "numpy"
+
+-- require('ayu').setup({
+--   overrides = function()
+--     if vim.o.background == 'dark' then
+--       return { NormalNC = {bg = '#0f151e', fg = '#808080'} }
+--     else
+--       return { NormalNC = {bg = '#f0f0f0', fg = '#808080'} }
+--     end
+--   end
+-- })
+-- vim.keymap.set("n", "<leader>tt", require("themeCycler").open_lazy, { desc = "[T]oggle [T]heme" } )
+vim.keymap.set("n", "<leader>tt", require("telescope.builtin").colorscheme, { desc = "[T]oggle [T]heme" } )
+vim.cmd("colorscheme sonokai")

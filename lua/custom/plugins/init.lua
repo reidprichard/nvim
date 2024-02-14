@@ -177,16 +177,35 @@ return {
 			require("swenv.api").set_venv("default")
 		end,
 	},
-	-- {
-	-- 	"danymat/neogen",
-	-- 	version = "*",
-	-- 	enabled = true,
-	-- 	config = function(opts)
-	-- 		require("neogen").setup(opts)
-	-- 	end,
-	-- }
 	{
 		"kkoomen/vim-doge",
 		build = function() vim.cmd("call doge#install()") end,
-	}
+	},
+	-- {
+	-- 	"lrangell/theme-cycler.nvim",
+	-- 	-- opts = {
+	-- 	-- 	blacklist_default = true,
+	-- 	-- },
+	-- 	-- config = function(opts)
+	-- 	-- 	require("themeCycler").setup(opts)
+	-- 	-- end,
+	-- },
+	{
+		"navarasu/onedark.nvim",
+		opts = {
+			-- transparent = true,
+		},
+	},
+	{
+		"catppuccin/nvim",
+	},
+	{
+		"loctvl842/monokai-pro.nvim",
+	},
+	{
+		"rebelot/kanagawa.nvim",
+	},
+	{
+		"sainnhe/sonokai",
+	},
 }
