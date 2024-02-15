@@ -210,7 +210,7 @@ return {
 				normal_cur_line = false,
 				visual = '<leader>s',
 				visual_line = '<leader>s',
-				delete = '<leader>sd',
+				-- delete = '<leader>sd',
 				change = '<leader>sr',
 			},
 			aliases = {
