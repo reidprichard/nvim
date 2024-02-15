@@ -148,7 +148,7 @@ vim.opt.hlsearch = true
 vim.g.mapleader = " "
 vim.opt.splitright = true
 vim.opt.splitbelow = true
-vim.opt.splitkeep = "topline"
+vim.opt.splitkeep = "screen"
 -- vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions,resize"
 
 -- function ToggleBackgroundColor()
