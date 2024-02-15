@@ -309,6 +309,7 @@ end
 
 -- ** Copy to system clipboard **
 vim.keymap.set("v", "<leader>yc", '"+y', { desc = "[Y]ank to [C]lipboard" })
+vim.keymap.set("n", "<leader>yc", '"+yy', { desc = "[Y]ank to [C]lipboard" })
 local function YankWithoutBreaks()
   local pos_1 = vim.fn.getpos(".")
   local pos_2 = vim.fn.getpos("v")
