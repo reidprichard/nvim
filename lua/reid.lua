@@ -487,4 +487,7 @@ vim.g.doge_doc_standard_python = "numpy"
 -- })
 -- vim.keymap.set("n", "<leader>tt", require("themeCycler").open_lazy, { desc = "[T]oggle [T]heme" } )
 vim.keymap.set("n", "<leader>tt", require("telescope.builtin").colorscheme, { desc = "[T]oggle [T]heme" } )
+-- vim.g.sonokai_transparent_background = 2
+vim.g.sonokai_dim_inactive_windows = 1
+-- vim.g.sonokai_colors_override = {fg = {'#cfccbe', '235'}}
 vim.cmd("colorscheme sonokai")
