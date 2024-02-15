@@ -450,7 +450,7 @@ vim.keymap.set({ "n" }, "<C-S-W>", function() vim.cmd("tabclose") end, { desc = 
 
 function PythonTypeIgnore()
   local line_number = vim.api.nvim_win_get_cursor(0)[1]
-  local line_errors = vim.diagnostic.get(0, { lnum = line_number-1, severity = vim.diagnostic.severity.ERROR } )
+  local line_errors = vim.diagnostic.get(0, { lnum = line_number - 1, severity = vim.diagnostic.severity.ERROR })
   local unique_error_codes = {}
   for _, error in ipairs(line_errors) do
     if error.source == "mypy" then
@@ -460,7 +460,7 @@ function PythonTypeIgnore()
   -- Surely there's a better way of accomplishing this?
   local error_count = 0
   local error_codes_table = {}
-  for key,_ in pairs(unique_error_codes) do
+  for key, _ in pairs(unique_error_codes) do
     table.insert(error_codes_table, key)
     error_count = error_count + 1
   end
@@ -471,11 +471,12 @@ function PythonTypeIgnore()
     vim.api.nvim_set_current_line(line_text)
   end
 end
-vim.keymap.set("n", "<leader>pti", PythonTypeIgnore, { desc = "[P]ython [T]ype [I]gnore" })
-vim.keymap.set("n", "<leader>psv", require("swenv.api").pick_venv, { desc = "[P]ython [S]elect [V]env" } )
 
-vim.keymap.set("n", "<leader>dg", function() vim.cmd("DogeGenerate") end, { desc = "[D]ocumentation [G]enerate" } )
-vim.g.doge_python_settings = {single_quotes = 0, omit_redundant_param_types = 0}
+vim.keymap.set("n", "<leader>pti", PythonTypeIgnore, { desc = "[P]ython [T]ype [I]gnore" })
+vim.keymap.set("n", "<leader>psv", require("swenv.api").pick_venv, { desc = "[P]ython [S]elect [V]env" })
+
+vim.keymap.set("n", "<leader>dg", function() vim.cmd("DogeGenerate") end, { desc = "[D]ocumentation [G]enerate" })
+vim.g.doge_python_settings = { single_quotes = 0, omit_redundant_param_types = 0 }
 vim.g.doge_doc_standard_python = "numpy"
 
 -- require('ayu').setup({
@@ -488,7 +489,7 @@ vim.g.doge_doc_standard_python = "numpy"
 --   end
 -- })
 -- vim.keymap.set("n", "<leader>tt", require("themeCycler").open_lazy, { desc = "[T]oggle [T]heme" } )
-vim.keymap.set("n", "<leader>tt", require("telescope.builtin").colorscheme, { desc = "[T]oggle [T]heme" } )
+vim.keymap.set("n", "<leader>tt", require("telescope.builtin").colorscheme, { desc = "[T]oggle [T]heme" })
 -- vim.g.sonokai_transparent_background = 2
 vim.g.sonokai_dim_inactive_windows = 1
 -- vim.g.sonokai_colors_override = {fg = {'#cfccbe', '235'}}
