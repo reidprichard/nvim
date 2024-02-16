@@ -163,7 +163,7 @@ vim.opt.splitkeep = "screen"
 --
 -- vim.api.nvim_create_autocmd({"FocusGained", "FocusLost"}, { callback = ToggleBackgroundColor } )
 
-local function FloatErrorMessage(title, error_text)
+local function float_error_message(title, error_text)
   -- local width = vim.api.nvim_win_get_width(0)
   -- local height = vim.api.nvim_win_get_height(0)
   -- local chars = 0
@@ -193,7 +193,7 @@ end
 
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
-local function RunPython(background)
+local function run_python(background)
   vim.cmd.write()
   print("Running...")
   local script_path = vim.fn.expand("%:p"):gsub(" ", "\\ ")
@@ -211,7 +211,7 @@ local function RunPython(background)
         if error_len == 0 then
           return
         else
-          FloatErrorMessage("Python error", data)
+          float_error_message("Python error", data)
         end
       end,
       stderr_buffered = true
@@ -222,8 +222,8 @@ local function RunPython(background)
     toggleterm.exec(command)
   end
 end
-vim.keymap.set("n", "<leader>rp", RunPython, { desc = "[R]un [P]ython" })
-vim.keymap.set("n", "<leader>brp", function() RunPython(true) end, { desc = "[B]ackground [R]un [P]ython" })
+vim.keymap.set("n", "<leader>rp", run_python, { desc = "[R]un [P]ython" })
+vim.keymap.set("n", "<leader>brp", function() run_python(true) end, { desc = "[B]ackground [R]un [P]ython" })
 -- vim.keymap.set("n", "<leader>rp", function() vim.cmd.write() vim.cmd("TermExec cmd=\"python %\"") end, { desc = "[R]un [P]ython" } )
 vim.keymap.set("n", "<leader>cb", function()
   vim.cmd.write()
@@ -283,7 +283,7 @@ vim.keymap.set({ "i", "s" }, "<C-E>", function()
   end
 end, { silent = true })
 
-local function GetVisualSelection()
+local function get_visual_selection()
   local pos_1 = vim.fn.getpos(".")
   local pos_2 = vim.fn.getpos("v")
   local s_start
@@ -311,7 +311,7 @@ end
 -- ** Copy to system clipboard **
 vim.keymap.set("v", "<leader>yc", '"+y', { desc = "[Y]ank to [C]lipboard" })
 vim.keymap.set("n", "<leader>yc", '"+yy', { desc = "[Y]ank to [C]lipboard" })
-local function YankWithoutBreaks()
+local function yank_without_breaks()
   local pos_1 = vim.fn.getpos(".")
   local pos_2 = vim.fn.getpos("v")
   local s_start
@@ -335,14 +335,14 @@ local function YankWithoutBreaks()
   end
   vim.fn.setreg("+", table.concat(lines, ''))
 end
-vim.keymap.set("v", "<leader>yC", YankWithoutBreaks, { desc = "[Y]ank to [C]lipboard (remove newlines)" })
+vim.keymap.set("v", "<leader>yC", yank_without_breaks, { desc = "[Y]ank to [C]lipboard (remove newlines)" })
 
 -- ** NoNeckPain binds **
 vim.keymap.set("n", "<leader>tc", function() vim.cmd(":NoNeckPain") end, { desc = "[T]oggle [C]enter" })
 vim.keymap.set("n", "<leader>cu", function() vim.cmd(":NoNeckPainWidthUp") end, { desc = "[C]enter width [U]p" })
 vim.keymap.set("n", "<leader>cd", function() vim.cmd(":NoNeckPainWidthDown") end, { desc = "[C]enter width [D]own" })
 
-local function TelescopeLiveGrep()
+local function telescope_live_grep()
   if vim.fn.executable("rg") then
     require("telescope.builtin").live_grep({ grep_open_files = true })
   else
@@ -351,7 +351,7 @@ local function TelescopeLiveGrep()
 end
 
 -- ** Search all buffers' contents **
-vim.keymap.set("n", "<leader>sb", TelescopeLiveGrep, { desc = "[S]earch open [B]uffers contents" })
+vim.keymap.set("n", "<leader>sb", telescope_live_grep, { desc = "[S]earch open [B]uffers contents" })
 
 -- ** Move selected lines up/down **
 vim.keymap.set("n", "<M-j>", function() vim.cmd(":m+1") end, { desc = "Move selected line down one line" })
@@ -375,7 +375,7 @@ vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help)
 -- call nvim_win_set_option(win, 'winhl', 'Normal:MyHighlight')
 
 
-local function GitAddCommit()
+local function git_add_and_commit()
   require("dressing.config").update({ input = { relative = "editor" } })
   vim.ui.input(
     { prompt = "Enter commit message." },
@@ -401,7 +401,7 @@ local function GitAddCommit()
             if error_len == 0 then
               return
             else
-              FloatErrorMessage("Git Commit Error", data)
+              float_error_message("Git Commit Error", data)
             end
           end,
           stderr_buffered = true
@@ -411,7 +411,7 @@ local function GitAddCommit()
   require("dressing.config").update({ input = { relative = "cursor" } })
 end
 
-vim.keymap.set("n", "<leader>gc", GitAddCommit, { desc = "[G]it [C]ommit: add and commit current directory" })
+vim.keymap.set("n", "<leader>gc", git_add_and_commit, { desc = "[G]it [C]ommit: add and commit current directory" })
 vim.keymap.set("n", "<leader>gp", function() toggleterm.exec("git push origin main") end,
   { desc = "[G]it [P]ush origin main" })
 vim.keymap.set("n", "<leader>gu",
@@ -445,7 +445,7 @@ vim.keymap.set({ "n", "i" }, "<C-S-N>", function() vim.cmd("tabnext") end, { des
 vim.keymap.set({ "n", "i" }, "<C-S-P>", function() vim.cmd("tabprevious") end, { desc = "Go to previous tab" })
 vim.keymap.set({ "n" }, "<C-S-W>", function() vim.cmd("tabclose") end, { desc = "Close current tab" })
 
-function PythonTypeIgnore()
+function python_add_type_ignore_statement()
   local line_number = vim.api.nvim_win_get_cursor(0)[1]
   local line_errors = vim.diagnostic.get(0, { lnum = line_number - 1, severity = vim.diagnostic.severity.ERROR })
   local unique_error_codes = {}
@@ -469,7 +469,7 @@ function PythonTypeIgnore()
   end
 end
 
-vim.keymap.set("n", "<leader>pti", PythonTypeIgnore, { desc = "[P]ython [T]ype [I]gnore" })
+vim.keymap.set("n", "<leader>pti", python_add_type_ignore_statement, { desc = "[P]ython [T]ype [I]gnore" })
 vim.keymap.set("n", "<leader>psv", require("swenv.api").pick_venv, { desc = "[P]ython [S]elect [V]env" })
 
 vim.keymap.set("n", "<leader>dg", function() vim.cmd("DogeGenerate") end, { desc = "[D]ocumentation [G]enerate" })
@@ -492,13 +492,49 @@ vim.g.sonokai_dim_inactive_windows = 1
 -- vim.g.sonokai_colors_override = {fg = {'#cfccbe', '235'}}
 vim.cmd("colorscheme sonokai")
 
-function NewSession()
+function new_session(directory_name)
+  -- Code ripped from Shatur/neovim-session-manager :)
+
+  -- Ask to save files in current session before closing them.
+  for _, buffer in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_get_option(buffer, 'modified') then
+      local choice = vim.fn.confirm('The files in the current session have changed. Save changes?', '&Yes\n&No\n&Cancel')
+      if choice == 3 or choice == 0 then
+        return -- Cancel.
+      elseif choice == 1 then
+        vim.api.nvim_command('silent wall')
+      end
+      break
+    end
+  end
+
+  -- Scedule buffers cleanup to avoid callback issues and source the session.
+  vim.schedule(function()
+    -- Delete all buffers first except the current one to avoid entering buffers scheduled for deletion.
+    local current_buffer = vim.api.nvim_get_current_buf()
+    for _, buffer in ipairs(vim.api.nvim_list_bufs()) do
+      if vim.api.nvim_buf_is_valid(buffer) and buffer ~= current_buffer then
+        vim.api.nvim_buf_delete(buffer, { force = true })
+      end
+    end
+    vim.api.nvim_buf_delete(current_buffer, { force = true })
+
+    local swapfile = vim.o.swapfile
+    vim.o.swapfile = false
+    vim.api.nvim_set_current_dir(directory_name)
+    vim.o.swapfile = swapfile
+  end)
+
+end
+
+function new_session_prompt()
   vim.ui.input({ prompt = "Enter the working directory." },
     function(input)
       if vim.fn.isdirectory(input) then
-
+        new_session(input)
       else
         print("Enter a valid directory.")
+        new_session_prompt()
       end
     end
   )
