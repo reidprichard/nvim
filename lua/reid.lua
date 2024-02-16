@@ -233,9 +233,9 @@ end, { desc = "[C]make [B]uild" })
 vim.keymap.set("n", "<leader>cp", function() vim.cmd("let @* = expand('%:p:h')") end, { desc = "[C]opy [P]ath" })
 
 -- Use <leader>[direction] to swap between panes
-local keys = { "h", "j", "k", "l", "H", "J", "K", "L" }
+local keys = { "h", "j", "k", "l" }
 for _, key in pairs(keys) do
-  vim.keymap.set("n", "<leader>" .. key, "<C-w>" .. key)
+  vim.keymap.set("n", "<C-" .. key .. ">", "<C-w>" .. key)
 end
 
 -- Use this if you want it to automatically show all diagnostics on the
