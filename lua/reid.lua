@@ -530,7 +530,7 @@ local function new_session_prompt(prompt)
     end
   end
 
-  vim.ui.input({ prompt = prompt or "Enter the working directory." },
+  vim.ui.input({ prompt = prompt or "Enter the working directory.", relative="editor" },
     function(input)
       if input == nil then
         return

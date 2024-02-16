@@ -146,15 +146,15 @@ return {
 	{
 		"stevearc/dressing.nvim",
 		opts = {
-			get_config = function(opts)
-				if opts.relative == "window" or opts.relative == "editor" then
-					return {
-						builtin = {
+			input = {
+				get_config = function(opts)
+					if opts.relative == "window" or opts.relative == "editor" then
+						return {
 							relative = opts.relative,
 						}
-					}
-				end
-			end,
+					end
+				end,
+			},
 			-- input = {
 			-- 	relative = "editor",
 			-- },
