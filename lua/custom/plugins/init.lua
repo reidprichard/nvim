@@ -145,11 +145,20 @@ return {
 	},
 	{
 		"stevearc/dressing.nvim",
-		-- opts = {
-		-- 	input = {
-		-- 		relative = "editor",
-		-- 	},
-		-- },
+		opts = {
+			get_config = function(opts)
+				if opts.relative == "window" or opts.relative == "editor" then
+					return {
+						builtin = {
+							relative = opts.relative,
+						}
+					}
+				end
+			end,
+			-- input = {
+			-- 	relative = "editor",
+			-- },
+		},
 	},
 	{
 		"RRethy/vim-illuminate",

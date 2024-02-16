@@ -261,10 +261,10 @@ vim.keymap.set(
 
 -- Search auto-session sessions
 vim.keymap.set("n", "<leader>ss", function() vim.cmd("SessionManager save_current_session") end,
-  { desc = "[S]ession [S]ave" })
+  { desc = "[S]ession: [S]ave" })
 vim.keymap.set("n", "<leader>sl", function() vim.cmd("SessionManager load_session") end, { desc = "[S]ession [L]oad" })
 vim.keymap.set("n", "<leader>sd", function() vim.cmd("SessionManager delete_session") end,
-  { desc = "[S]ession [D]elete" })
+  { desc = "[S]ession: [D]elete" })
 
 vim.keymap.set({ "n", "v" }, "<leader>lf", function() vim.lsp.buf.format { timeout_ms = 2500 } end,
   { desc = "[L]SP [F]ormat" })
@@ -445,7 +445,7 @@ vim.keymap.set({ "n", "i" }, "<C-S-N>", function() vim.cmd("tabnext") end, { des
 vim.keymap.set({ "n", "i" }, "<C-S-P>", function() vim.cmd("tabprevious") end, { desc = "Go to previous tab" })
 vim.keymap.set({ "n" }, "<C-S-W>", function() vim.cmd("tabclose") end, { desc = "Close current tab" })
 
-function python_add_type_ignore_statement()
+local function python_add_type_ignore_statement()
   local line_number = vim.api.nvim_win_get_cursor(0)[1]
   local line_errors = vim.diagnostic.get(0, { lnum = line_number - 1, severity = vim.diagnostic.severity.ERROR })
   local unique_error_codes = {}
@@ -492,21 +492,8 @@ vim.g.sonokai_dim_inactive_windows = 1
 -- vim.g.sonokai_colors_override = {fg = {'#cfccbe', '235'}}
 vim.cmd("colorscheme sonokai")
 
-function new_session(directory_name)
+local function new_session(directory_name)
   -- Code ripped from Shatur/neovim-session-manager :)
-
-  -- Ask to save files in current session before closing them.
-  for _, buffer in ipairs(vim.api.nvim_list_bufs()) do
-    if vim.api.nvim_buf_get_option(buffer, 'modified') then
-      local choice = vim.fn.confirm('The files in the current session have changed. Save changes?', '&Yes\n&No\n&Cancel')
-      if choice == 3 or choice == 0 then
-        return -- Cancel.
-      elseif choice == 1 then
-        vim.api.nvim_command('silent wall')
-      end
-      break
-    end
-  end
 
   -- Scedule buffers cleanup to avoid callback issues and source the session.
   vim.schedule(function()
@@ -527,15 +514,33 @@ function new_session(directory_name)
 
 end
 
-function new_session_prompt()
-  vim.ui.input({ prompt = "Enter the working directory." },
+local function new_session_prompt(prompt)
+  -- Code ripped from Shatur/neovim-session-manager :)
+
+  -- Ask to save files in current session before closing them.
+  for _, buffer in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_get_option(buffer, 'modified') then
+      local choice = vim.fn.confirm('The files in the current session have changed. Save changes?', '&Yes\n&No\n&Cancel')
+      if choice == 3 or choice == 0 then
+        return -- Cancel.
+      elseif choice == 1 then
+        vim.api.nvim_command('silent wall')
+      end
+      break
+    end
+  end
+
+  vim.ui.input({ prompt = prompt or "Enter the working directory." },
     function(input)
-      if vim.fn.isdirectory(input) then
+      if input == nil then
+        return
+      elseif vim.fn.isdirectory(input) then
         new_session(input)
       else
-        print("Enter a valid directory.")
-        new_session_prompt()
+        new_session_prompt("Enter a valid directory.")
       end
     end
   )
 end
+
+vim.keymap.set("n", "<leader>sn", new_session_prompt, { desc = "[S]ession: [N]ew" } )
