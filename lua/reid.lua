@@ -416,16 +416,13 @@ vim.keymap.set("n", "<leader>gp", function() toggleterm.exec("git push origin ma
   { desc = "[G]it [P]ush origin main" })
 vim.keymap.set("n", "<leader>gu",
   function()
-    vim.ui.input({ prompt = "Reset the last commit? [Y]es/[N]o" },
-      function(input)
-        if input == "y" or input == "Y" or input == "yes" or input == "Yes" then
-          toggleterm.exec("git reset --soft HEAD~1")
-        else
-          print("Reset cancelled.")
-          return
-        end
-      end
-    )
+    local choice = vim.fn.confirm('Reset the last commit?', '&Yes\n&No')
+    if choice == 1 then
+      toggleterm.exec("git reset --soft HEAD~1")
+    else
+      print("Reset cancelled.")
+      return
+    end
   end
 )
 vim.keymap.set("n", "<leader>gu", function() toggleterm.exec("git reset --soft HEAD~1") end,
@@ -494,3 +491,15 @@ vim.keymap.set("n", "<leader>tt", require("telescope.builtin").colorscheme, { de
 vim.g.sonokai_dim_inactive_windows = 1
 -- vim.g.sonokai_colors_override = {fg = {'#cfccbe', '235'}}
 vim.cmd("colorscheme sonokai")
+
+function NewSession()
+  vim.ui.input({ prompt = "Enter the working directory." },
+    function(input)
+      if vim.fn.isdirectory(input) then
+
+      else
+        print("Enter a valid directory.")
+      end
+    end
+  )
+end
