@@ -191,7 +191,7 @@ end
 -- ************** Key mappings ************
 
 
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>pv", vim.cmd.Explore)
 
 local function run_python(background)
   vim.cmd.write()
@@ -510,6 +510,7 @@ local function new_session(directory_name)
     vim.o.swapfile = false
     vim.api.nvim_set_current_dir(directory_name)
     vim.o.swapfile = swapfile
+    vim.cmd.Explore()
   end)
 
 end
