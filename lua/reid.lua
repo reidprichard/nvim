@@ -149,7 +149,6 @@ vim.g.mapleader = " "
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.splitkeep = "screen" -- When a hsplit opens, scrolls the buffer so that the text maintains the same on-screen position
-vim.opt.autochdir = true
 -- vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions,resize"
 
 -- function ToggleBackgroundColor()
@@ -190,9 +189,6 @@ local function float_error_message(title, error_text)
 end
 
 -- ************** Key mappings ************
-
-
-vim.keymap.set("n", "<leader>pv", vim.cmd.Explore)
 
 local function run_python(background)
   vim.cmd.write()
