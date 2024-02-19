@@ -148,7 +148,8 @@ vim.opt.hlsearch = true
 vim.g.mapleader = " "
 vim.opt.splitright = true
 vim.opt.splitbelow = true
-vim.opt.splitkeep = "screen"
+vim.opt.splitkeep = "screen" -- When a hsplit opens, scrolls the buffer so that the text maintains the same on-screen position
+vim.opt.autochdir = true
 -- vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions,resize"
 
 -- function ToggleBackgroundColor()
@@ -236,6 +237,7 @@ vim.keymap.set("n", "<leader>cp", function() vim.cmd("let @* = expand('%:p:h')")
 local keys = { "h", "j", "k", "l" }
 for _, key in pairs(keys) do
   vim.keymap.set("n", "<C-" .. key .. ">", "<C-w>" .. key)
+  vim.keymap.set("t", "<C-" .. key .. ">", "<C-\\><C-n><C-w>" .. key)
 end
 
 -- Use this if you want it to automatically show all diagnostics on the
