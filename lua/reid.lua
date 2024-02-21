@@ -439,8 +439,8 @@ vim.keymap.set("n", "<leader>gu", function() toggleterm.exec("git reset --soft H
 -- vim.keymap.set("n", "<leader>ss", require("telescope.builtin").symbols, { desc = "[S]earch [S]ymbols" })
 vim.keymap.set("i", "<C-i>", require("telescope.builtin").symbols, { desc = "[I]nsert symbol" })
 
-vim.keymap.set({ "n", "i" }, "<C-H>", function() vim.cmd("tabnext") end, { desc = "Go to next tab" })
-vim.keymap.set({ "n", "i" }, "<C-L>", function() vim.cmd("tabprevious") end, { desc = "Go to previous tab" })
+vim.keymap.set({ "n", "i" }, "<A-H>", function() vim.cmd("tabnext") end, { desc = "Go to next tab" })
+vim.keymap.set({ "n", "i" }, "<A-L>", function() vim.cmd("tabprevious") end, { desc = "Go to previous tab" })
 vim.keymap.set({ "n" }, "<C-S-W>", function() vim.cmd("tabclose") end, { desc = "Close current tab" })
 
 local function python_add_type_ignore_statement()
