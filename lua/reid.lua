@@ -543,5 +543,5 @@ local function new_session_prompt(prompt)
 end
 
 vim.keymap.set("n", "<leader>sn", new_session_prompt, { desc = "[S]ession: [N]ew" } )
-vim.keymap.set("n", "q", "<Nop>");
+-- vim.keymap.set("n", "q", "<Nop>");
 -- vim.keymap.set("n", "Q", vim.api.macr);
