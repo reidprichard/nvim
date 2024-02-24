@@ -545,4 +545,3 @@ end
 vim.keymap.set("n", "<leader>sn", new_session_prompt, { desc = "[S]ession: [N]ew" } )
 -- vim.keymap.set("n", "q", "<Nop>");
 -- vim.keymap.set("n", "Q", vim.api.macr);
-vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help)
