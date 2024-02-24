@@ -48,7 +48,8 @@ return {
 		"ray-x/lsp_signature.nvim",
 		event = "VeryLazy",
 		opts = {
-			-- floating_window_above_cur_line = false,
+			floating_window_above_cur_line = false,
+			floating_window = false,
 			-- floating_window_off_x = 6,
 			transparency = 0.9,
 			toggle_key = '<C-h>',
