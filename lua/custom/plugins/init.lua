@@ -164,12 +164,12 @@ return {
 	{
 		"RRethy/vim-illuminate",
 	},
-	{
-		"chrisbra/unicode.vim",
-	},
-	{
-		"nvim-telescope/telescope-symbols.nvim"
-	},
+	-- {
+	-- 	"chrisbra/unicode.vim",
+	-- },
+	-- {
+	-- 	"nvim-telescope/telescope-symbols.nvim"
+	-- },
 	{
 		"AckslD/swenv.nvim",
 		config = function()
