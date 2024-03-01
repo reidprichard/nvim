@@ -149,6 +149,7 @@ vim.g.mapleader = " "
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.splitkeep = "screen" -- When a hsplit opens, scrolls the buffer so that the text maintains the same on-screen position
+vim.opt.smartindent = false -- https://www.reddit.com/r/neovim/comments/14n6iiy/if_you_have_treesitter_make_sure_to_disable/
 -- vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions,resize"
 
 -- function ToggleBackgroundColor()
