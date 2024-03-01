@@ -138,8 +138,8 @@ end
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
-vim.opt.inde = "" -- Had to do this to prevent weird spacing being added when I typed "else" in a cpp file?
-vim.opt.indentexpr = ""
+vim.opt.expandtab = true
+-- vim.opt.indentexpr = "" -- Had to do this to prevent weird spacing being added when I typed "else" in a cpp file?
 vim.opt.guifont = "CaskaydiaCove Nerd Font:h18"
 -- vim.opt.guifont = "Consolas:h18"
 vim.opt.wrap = false
