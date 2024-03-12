@@ -271,6 +271,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 local telescope_actions = require('telescope.actions')
 require('telescope').setup {
   defaults = {
+    file_ignore_patterns = { "__pycache__" },
     mappings = {
       i = {
         ['<C-u>'] = false,
@@ -525,8 +526,8 @@ cmp.setup {
     },
   },
   sources = {
-    { name = 'nvim_lsp', max_item_count=3, },
-    { name = 'luasnip', max_item_count=3, },
+    { name = 'nvim_lsp', max_item_count = 5, },
+    { name = 'luasnip',  max_item_count = 2, },
   },
 }
 
