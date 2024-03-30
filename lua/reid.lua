@@ -374,7 +374,7 @@ vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help)
 -- call nvim_win_set_option(win, 'winhl', 'Normal:MyHighlight')
 
 
-local function git_add_and_commit()
+local function git_commit()
   require("dressing.config").update({ input = { relative = "editor" } })
   vim.ui.input(
     { prompt = "Enter commit message." },
@@ -387,7 +387,7 @@ local function git_add_and_commit()
       else
         input = '"' .. input:gsub('"', '\\"') .. '"'
       end
-      vim.fn.jobstart("git add . && git commit -m " .. input,
+      vim.fn.jobstart("git commit -m " .. input,
         {
           on_exit = function() print("Commit successful.") end,
           on_stderr = function(chan_id, data, name)
@@ -410,7 +410,8 @@ local function git_add_and_commit()
   require("dressing.config").update({ input = { relative = "cursor" } })
 end
 
-vim.keymap.set("n", "<leader>gc", git_add_and_commit, { desc = "[G]it [C]ommit: add and commit current directory" })
+vim.keymap.set("n", "<leader>ga", function() vim.cmd("!git add %") end, { desc = "[G]it [A]dd: add the current file" })
+vim.keymap.set("n", "<leader>gc", git_commit, { desc = "[G]it [C]ommit" })
 vim.keymap.set("n", "<leader>gp", function() toggleterm.exec("git push origin main") end,
   { desc = "[G]it [P]ush origin main" })
 vim.keymap.set("n", "<leader>gu",
