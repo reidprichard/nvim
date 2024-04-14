@@ -138,8 +138,8 @@ end
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
-vim.opt.inde = "" -- Had to do this to prevent weird spacing being added when I typed "else" in a cpp file?
-vim.opt.indentexpr = ""
+vim.opt.expandtab = true
+-- vim.opt.indentexpr = "" -- Had to do this to prevent weird spacing being added when I typed "else" in a cpp file?
 vim.opt.guifont = "CaskaydiaCove Nerd Font:h18"
 -- vim.opt.guifont = "Consolas:h18"
 vim.opt.wrap = false
@@ -149,7 +149,7 @@ vim.g.mapleader = " "
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.splitkeep = "screen" -- When a hsplit opens, scrolls the buffer so that the text maintains the same on-screen position
-vim.opt.smartindent = false -- https://www.reddit.com/r/neovim/comments/14n6iiy/if_you_have_treesitter_make_sure_to_disable/
+vim.opt.smartindent = true -- https://www.reddit.com/r/neovim/comments/14n6iiy/if_you_have_treesitter_make_sure_to_disable/
 -- vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions,resize"
 
 -- function ToggleBackgroundColor()

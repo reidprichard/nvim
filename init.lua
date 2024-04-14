@@ -277,20 +277,11 @@ require('telescope').setup {
       i = {
         ['<C-u>'] = false,
         ['<C-d>'] = telescope_actions.delete_buffer,
-        ['<C-t>'] = telescope_actions.file_tab,
-        ['<C-s>'] = telescope_actions.file_vsplit,
       },
     },
     path_display = { 'smart' },
   },
   pickers = {
-    help_tags = {
-      mappings = {
-        i = {
-          ['<CR>'] = telescope_actions.file_tab
-        },
-      }
-    },
     colorscheme = {
       enable_preview = true
     }
@@ -336,7 +327,7 @@ require('nvim-treesitter.configs').setup {
 
   highlight = { enable = true },
   indent = {
-    enable = true,
+    enable = false,
     -- disable = { 'python' },
   },
   incremental_selection = {
