@@ -143,7 +143,8 @@ require('lazy').setup({
         -- theme = theme,
         component_separators = '|',
         section_separators = '',
-      }
+      },
+      sections = { lualine_c = { 'filename', 'nvim_treesitter#statusline' } }
     },
   },
 
@@ -321,7 +322,7 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'lua', 'markdown', 'python', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'yaml' },
+  ensure_installed = { 'c', 'cmake', 'comment', 'cpp', 'lua', 'markdown', 'python', 'rust', 'vimdoc', 'vim', 'yaml', },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
@@ -526,8 +527,8 @@ cmp.setup {
     },
   },
   sources = {
-    { name = 'nvim_lsp', max_item_count = 5, },
-    { name = 'luasnip',  max_item_count = 2, },
+    { name = 'nvim_lsp', max_item_count = 10 },
+    { name = 'luasnip', max_item_count = 2 },
   },
 }
 
