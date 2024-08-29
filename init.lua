@@ -45,6 +45,7 @@ require('lazy').setup({
     'hrsh7th/nvim-cmp',
     dependencies = {
       -- Adds LSP completion capabilities
+      'saadparwaiz1/cmp_luasnip',
       'hrsh7th/cmp-nvim-lsp',
     },
   },
@@ -389,6 +390,10 @@ local servers = {
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`
 local cmp = require 'cmp'
+local luasnip = require 'luasnip'
+require('luasnip.loaders.from_vscode').lazy_load()
+luasnip.config.setup {}
+
 cmp.setup {
   snippet = {
     expand = function(args)
