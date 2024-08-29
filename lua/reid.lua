@@ -412,7 +412,6 @@ local function python_add_type_ignore_statement()
 end
 
 vim.keymap.set("n", "<leader>pti", python_add_type_ignore_statement, { desc = "[P]ython [T]ype [I]gnore" })
-vim.keymap.set("n", "<leader>psv", require("swenv.api").pick_venv, { desc = "[P]ython [S]elect [V]env" })
 
 vim.keymap.set("n", "<leader>dg", function() vim.cmd("DogeGenerate") end, { desc = "[D]ocumentation [G]enerate" })
 vim.g.doge_python_settings = { single_quotes = 0, omit_redundant_param_types = 0 }
@@ -429,10 +428,7 @@ vim.g.doge_doc_standard_python = "numpy"
 -- })
 -- vim.keymap.set("n", "<leader>tt", require("themeCycler").open_lazy, { desc = "[T]oggle [T]heme" } )
 vim.keymap.set("n", "<leader>tt", require("telescope.builtin").colorscheme, { desc = "[T]oggle [T]heme" })
--- vim.g.sonokai_transparent_background = 2
-vim.g.sonokai_dim_inactive_windows = 1
--- vim.g.sonokai_colors_override = {fg = {'#cfccbe', '235'}}
-vim.cmd("colorscheme sonokai")
+-- vim.cmd("colorscheme sonokai")
 
 local function new_session(directory_name)
   -- Code ripped from Shatur/neovim-session-manager :)
