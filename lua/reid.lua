@@ -8,9 +8,6 @@ if vim.g.neovide then
   vim.keymap.set("t", "<MouseMove>", "<NOP>")
 end
 
-local toggleterm = require("toggleterm")
-local lspconfig = require("lspconfig")
-
 -- lspconfig.pyright.setup {
 --   settings = {
 --     python = {
@@ -37,62 +34,6 @@ local lspconfig = require("lspconfig")
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-
-local function custom_attach(client, bufnr)
-  require("lsp_signature").on_attach({
-    bind = true,
-    use_lspsaga = false,
-    floating_window = true,
-    fix_pos = true,
-    hint_enable = true,
-    hi_parameter = "Search",
-    handler_opts = { "double" },
-  })
-end
-
-local ahk2_configs = {
-  autostart = true,
-  cmd = {
-    "node",
-    vim.fn.expand("$HOME/vscode-autohotkey2-lsp/server/dist/server.js"),
-    "--stdio"
-  },
-  filetypes = { "ahk", "autohotkey" },
-  init_options = {
-    locale = "en-us",
-    AutoLibInclude = "Disabled",
-    CommentTags = "^;;\\s*(?<tag>.+)",
-    CompleteFunctionParens = false,
-    Diagnostics = {
-      ClassStaticMemberCheck = true,
-      ParamsCheck = true
-    },
-    DisableV1Script = true,
-    FormatOptions = {
-      break_chained_methods = false,
-      ignore_comment = false,
-      indent_string = "\t",
-      keep_array_indentation = true,
-      max_preserve_newlines = 2,
-      one_true_brace = "1",
-      preserve_newlines = true,
-      space_before_conditional = true,
-      space_in_empty_paren = false,
-      space_in_other = true,
-      space_in_paren = false,
-      wrap_line_length = 0
-    },
-    InterpreterPath = "C:/Program Files/AutoHotkey/v2/AutoHotkey.exe",
-    SymbolFoldingFromOpenBrace = false
-  },
-  single_file_support = true,
-  flags = { debounce_text_changes = 500 },
-  capabilities = capabilities,
-  on_attach = custom_attach,
-}
-local configs = require "lspconfig.configs"
-configs["ahk2"] = { default_config = ahk2_configs }
-lspconfig.ahk2.setup({})
 
 require('onedark').setup {
   toggle_style_key = '<leader>to',

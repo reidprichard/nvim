@@ -9,14 +9,6 @@ if Platform == "Windows_NT" then
 end
 return {
 	{
-		"shortcuts/no-neck-pain.nvim",
-		version = "*",
-		opts = {
-			width = 120,
-		},
-		config = function(_, opts) require("no-neck-pain").setup(opts) end
-	},
-	{
 		"HiPhish/rainbow-delimiters.nvim"
 	},
 	{
@@ -63,31 +55,8 @@ return {
 		config = function(_, opts) require('lsp_signature').setup(opts) end
 	},
 	{
-		"Shatur/neovim-session-manager",
-		opts = {
-			autosave_only_in_session = true,
-		}
-	},
-	{
 		"MDeiml/tree-sitter-markdown",
 	},
-	-- {
-	--   "pocco81/auto-save.nvim"
-	-- }
-	{
-		"mfussenegger/nvim-dap",
-	},
-	{
-		"mfussenegger/nvim-dap-python",
-	},
-	{
-		"rcarriga/nvim-dap-ui",
-	},
-	-- {
-	-- 	"L3MON4D3/LuaSnip",
-	-- 	version = "v2.*",
-	-- 	build = "make install_jsregexp",
-	-- },
 	{
 		"nvimtools/none-ls.nvim",
 		config = function()
@@ -142,9 +111,6 @@ return {
 		end,
 	},
 	{
-		"rmagatti/alternate-toggler",
-	},
-	{
 		"stevearc/dressing.nvim",
 		opts = {
 			input = {
@@ -164,49 +130,18 @@ return {
 	{
 		"RRethy/vim-illuminate",
 	},
-	-- {
-	-- 	"chrisbra/unicode.vim",
-	-- },
-	-- {
-	-- 	"nvim-telescope/telescope-symbols.nvim"
-	-- },
-	{
-		"AckslD/swenv.nvim",
-		config = function()
-			require("swenv").setup()
-			require("swenv.api").set_venv("default")
-		end,
-	},
 	{
 		"kkoomen/vim-doge",
 		build = function() vim.cmd("call doge#install()") end,
 	},
-	-- {
-	-- 	"lrangell/theme-cycler.nvim",
-	-- 	-- opts = {
-	-- 	-- 	blacklist_default = true,
-	-- 	-- },
-	-- 	-- config = function(opts)
-	-- 	-- 	require("themeCycler").setup(opts)
-	-- 	-- end,
-	-- },
 	{
 		"navarasu/onedark.nvim",
 		opts = {
 			-- transparent = true,
 		},
 	},
-	-- {
-	-- 	"catppuccin/nvim",
-	-- },
 	{
 		"loctvl842/monokai-pro.nvim",
-	},
-	{
-		"rebelot/kanagawa.nvim",
-	},
-	{
-		"sainnhe/sonokai",
 	},
 	{
 		"kylechui/nvim-surround",
@@ -234,10 +169,4 @@ return {
 			require("nvim-surround").setup(opts)
 		end,
 	},
-	-- {
-	-- 	"ahmedkhalf/project.nvim",
-	-- 	config = function(_, opts)
-	-- 		require("project_nvim").setup()
-	-- 	end,
-	-- }
 }
