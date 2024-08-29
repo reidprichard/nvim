@@ -35,11 +35,11 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
-require('onedark').setup {
-  toggle_style_key = '<leader>to',
-  -- toggle_style_list = { 'dark', 'cool', 'deep', 'warm' }
-}
-vim.keymap.set("n", "<leader>ts", require("onedark").toggle, { desc = "[T]oggle [S]tyle" })
+-- require('onedark').setup {
+--   toggle_style_key = '<leader>to',
+--   -- toggle_style_list = { 'dark', 'cool', 'deep', 'warm' }
+-- }
+-- vim.keymap.set("n", "<leader>ts", require("onedark").toggle, { desc = "[T]oggle [S]tyle" })
 
 require("luasnip.loaders.from_snipmate").lazy_load({ paths = { "./snippets/" } })
 
@@ -428,7 +428,7 @@ vim.g.doge_doc_standard_python = "numpy"
 -- })
 -- vim.keymap.set("n", "<leader>tt", require("themeCycler").open_lazy, { desc = "[T]oggle [T]heme" } )
 vim.keymap.set("n", "<leader>tt", require("telescope.builtin").colorscheme, { desc = "[T]oggle [T]heme" })
--- vim.cmd("colorscheme sonokai")
+vim.cmd("colorscheme sonokai")
 
 local function new_session(directory_name)
   -- Code ripped from Shatur/neovim-session-manager :)
