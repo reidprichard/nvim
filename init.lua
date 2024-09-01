@@ -52,8 +52,41 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim',  opts = {} },
-  {
+  -- { 'folke/which-key.nvim',  opts = {} },
+  {  { 'folke/which-key.nvim',  opts = {
+      icons = {
+        mappings = false,
+        keys = {
+          Up = "↑",
+          Down = "↓",
+          Left = "←",
+          Right = "→",
+          C = "Ctrl",
+          M = "Win",
+          D = "?",
+          S = "Shift",
+          CR = "Enter",
+          Esc = "Esc",
+          NL = "?",
+          BS = "Bck",
+          Space = "Spc",
+          Tab = "Tab",
+          F1 = "F1",
+          F2 = "F2",
+          F3 = "F3",
+          F4 = "F4",
+          F5 = "F5",
+          F6 = "F6",
+          F7 = "F7",
+          F8 = "F8",
+          F9 = "F9",
+          F10 = "F10",
+          F11 = "F11",
+          F12 = "F12",
+        }
+      }
+    }
+  },
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
     -- See `:help lualine.txt`

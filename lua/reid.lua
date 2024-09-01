@@ -54,18 +54,18 @@ require("luasnip.loaders.from_snipmate").lazy_load({ paths = { "./snippets/" } }
 --   }
 -- }
 
-local wk = require("which-key")
-wk.register({
-  ["<leader>"] = {
-    b = { name = "[B]ackground" },
-    g = { name = "[G]it" },
-    l = { name = "[L]SP" },
-    r = { name = "[R]un" },
-    s = { name = "[S]earch, [S]ession" },
-    t = { name = "[T]oggle" },
-    w = { name = "[W]orkspace" }, -- This one doesn't work for some reason?
-  }
-})
+-- local wk = require("which-key")
+-- wk.register({
+--   ["<leader>"] = {
+--     b = { name = "[B]ackground" },
+--     g = { name = "[G]it" },
+--     l = { name = "[L]SP" },
+--     r = { name = "[R]un" },
+--     s = { name = "[S]earch, [S]ession" },
+--     t = { name = "[T]oggle" },
+--     w = { name = "[W]orkspace" }, -- This one doesn't work for some reason?
+--   }
+-- })
 
 vim.diagnostic.config({
   virtual_text = false, -- Turn off inline diagnostics
