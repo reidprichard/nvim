@@ -194,7 +194,7 @@ end
 local function run_python(background)
   vim.cmd.write()
   print("Running...")
-  local script_path = vim.fn.expand("%:p"):gsub(" ", "\\ ")
+  local script_path = vim.fn.expand("%:p")
   local command = "python \"" .. script_path .. "\""
   if background then
     vim.fn.jobstart(command, {
