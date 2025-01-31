@@ -1,10 +1,10 @@
+vim.cmd('source ~/.vimrc')
+
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.g.Unicode_no_default_mappings = true
 
 -- Install package manager
---    https://github.com/folke/lazy.nvim
---    `:help lazy.nvim.txt` for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system {
@@ -18,20 +18,15 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- NOTE: Here is where you install your plugins.
---  You can configure plugins using the `config` key.
---
---  You can also configure plugins after the setup call,
---    as they will be available in your neovim runtime.
 require('lazy').setup({
   -- NOTE: First, some plugins that don't require any configuration
 
   -- Git related plugins
-  -- 'tpope/vim-fugitive',
+  'tpope/vim-fugitive',
   -- 'tpope/vim-rhubarb',
 
   -- Detect tabstop and shiftwidth automatically
-  -- 'tpope/vim-sleuth',
+  'tpope/vim-sleuth',
 
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
@@ -159,9 +154,6 @@ require('lazy').setup({
 }, {})
 
 -- [[ Setting options ]]
--- See `:help vim.o`
--- NOTE: You can change these options as you wish!
-
 -- Set highlight on search
 vim.o.hlsearch = false
 
@@ -172,8 +164,6 @@ vim.wo.number = true
 vim.o.mouse = 'a'
 
 -- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
 -- vim.o.clipboard = 'unnamedplus'
 
 -- Enable break indent
@@ -196,11 +186,8 @@ vim.o.timeoutlen = 300
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 
--- NOTE: You should make sure your terminal supports this
-vim.o.termguicolors = true
 
 -- [[ Basic Keymaps ]]
-
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
@@ -234,11 +221,6 @@ require('telescope').setup {
     },
     path_display = { 'smart' },
   },
-  pickers = {
-    colorscheme = {
-      enable_preview = true
-    }
-  }
 }
 
 -- Enable telescope fzf native, if installed
@@ -347,12 +329,6 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
-  -- NOTE: Remember that lua is a real programming language, and as such it is possible
-  -- to define small helper and utility functions so you don't have to repeat yourself
-  -- many times.
-  --
-  -- In this case, we create a function that lets us more easily define mappings specific
-  -- for LSP related items. It sets the mode, buffer and description for us each time.
   local nmap = function(keys, func, desc)
     if desc then
       desc = 'LSP: ' .. desc
@@ -364,7 +340,6 @@ local on_attach = function(_, bufnr)
   nmap('<leader>lr', vim.lsp.buf.rename, '[L]SP [R]ename')
   nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
-  -- nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
   nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
   nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
@@ -391,16 +366,7 @@ local on_attach = function(_, bufnr)
 end
 
 -- Enable the following language servers
---  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
---
---  Add any additional override configuration in the following tables. They will be passed to
---  the `settings` field of the server config. You must look up that documentation yourself.
---
---  If you want to override the default filetypes that your language server will attach to you can
---  define the property 'filetypes' to the map in question.
 local servers = {
-  -- clangd = {},
-  -- gopls = {},
   pyright = {
     python = {
       analysis = {
@@ -408,10 +374,6 @@ local servers = {
       }
     }
   },
-  -- rust_analyzer = {},
-  -- tsserver = {},
-  -- html = { filetypes = { 'html', 'twig', 'hbs'} },
-
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
@@ -450,8 +412,5 @@ cmp.setup {
     { name = 'luasnip', max_item_count = 2 },
   },
 }
-
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
 
 require('reid')
