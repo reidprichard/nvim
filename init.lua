@@ -1,5 +1,9 @@
 vim.cmd('source ~/.vimrc')
 
+require("mini")
+--require("plugins")
+
+-- Configuration
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.g.Unicode_no_default_mappings = true
@@ -10,7 +14,6 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 -- vim.opt.indentexpr = "" -- Had to do this to prevent weird spacing being added when I typed "else" in a cpp file?
 vim.opt.guifont = "CaskaydiaCove Nerd Font:h18"
--- vim.opt.guifont = "Consolas:h18"
 vim.opt.wrap = false
 vim.opt.number = true
 vim.opt.hlsearch = true
@@ -20,6 +23,7 @@ vim.opt.splitkeep = "screen" -- When a hsplit opens, scrolls the buffer so that 
 vim.opt.smartindent = true -- https://www.reddit.com/r/neovim/comments/14n6iiy/if_you_have_treesitter_make_sure_to_disable/
 -- vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions,resize"
 
+-- GUI settings --
 if vim.g.neovide then
   -- vim.g.neovide_transparency = 0.99
   vim.g.neovide_scroll_animation_length = 0.2
@@ -29,6 +33,7 @@ if vim.g.neovide then
   vim.g.neovide_cursor_animation_length = 0
   vim.keymap.set("t", "<MouseMove>", "<NOP>")
 end
+-- vim.opt.guifont = "Consolas:h18"
 
 vim.diagnostic.config({
   virtual_text = false, -- Turn off inline diagnostics
