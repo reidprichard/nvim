@@ -20,6 +20,25 @@ vim.opt.splitkeep = "screen" -- When a hsplit opens, scrolls the buffer so that 
 vim.opt.smartindent = true -- https://www.reddit.com/r/neovim/comments/14n6iiy/if_you_have_treesitter_make_sure_to_disable/
 -- vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions,resize"
 
+if vim.g.neovide then
+  -- vim.g.neovide_transparency = 0.99
+  vim.g.neovide_scroll_animation_length = 0.2
+  vim.g.neovide_scroll_animation_far_lines = 0
+  vim.g.neovide_refresh_rate = 144
+  vim.g.neovide_refresh_rate_idle = 60
+  vim.g.neovide_cursor_animation_length = 0
+  vim.keymap.set("t", "<MouseMove>", "<NOP>")
+end
+
+vim.diagnostic.config({
+  virtual_text = false, -- Turn off inline diagnostics
+})
+
+Platform = vim.loop.os_uname().sysname
+if Platform == "Windows_NT" then
+  vim.g.python3_host_prog = "python.exe"
+end
+
 -- Install package manager
 --  -- Git related plugins
 --  'tpope/vim-fugitive',
@@ -101,15 +120,6 @@ vim.o.timeoutlen = 300
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 
--- [[ Basic Keymaps ]]
--- Keymaps for better default experience
--- See `:help vim.keymap.set()`
-vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
-
--- Remap for dealing with word wrap
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
@@ -120,13 +130,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = highlight_group,
   pattern = '*',
 })
-
--- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
-
 
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`
@@ -158,7 +161,7 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 --  },
 --}
 
-require('reid')
---require("python")
---require("git")
---require("sessions")
+require('keymap')
+require("python")
+require("git")
+require("sessions")

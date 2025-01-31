@@ -1,30 +1,20 @@
-if vim.g.neovide then
-  -- vim.g.neovide_transparency = 0.99
-  vim.g.neovide_scroll_animation_length = 0.2
-  vim.g.neovide_scroll_animation_far_lines = 0
-  vim.g.neovide_refresh_rate = 144
-  vim.g.neovide_refresh_rate_idle = 60
-  vim.g.neovide_cursor_animation_length = 0
-  vim.keymap.set("t", "<MouseMove>", "<NOP>")
-end
-
-vim.diagnostic.config({
-  virtual_text = false, -- Turn off inline diagnostics
-})
-
-Platform = vim.loop.os_uname().sysname
-if Platform == "Windows_NT" then
-  vim.g.python3_host_prog = "python.exe"
-end
-
-vim.g.doge_python_settings = { single_quotes = 0, omit_redundant_param_types = 0 }
-vim.g.doge_doc_standard_python = "numpy"
-
 -- vim.api.nvim_create_autocmd({"FocusGained", "FocusLost"}, { callback = ToggleBackgroundColor } )
 
-
 -- ************** Key mappings ************
-require("utils")
+-- [[ Basic Keymaps ]]
+-- Keymaps for better default experience
+-- See `:help vim.keymap.set()`
+vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+
+-- Remap for dealing with word wrap
+vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
+-- Diagnostic keymaps
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 vim.keymap.set("n", "<leader>cb", function()
   vim.cmd.write()
@@ -111,9 +101,6 @@ vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help)
 -- " optional: change highlight, otherwise Pmenu is used
 -- call nvim_win_set_option(win, 'winhl', 'Normal:MyHighlight')
 
-
-
 vim.keymap.set({ "n", "i" }, "<A-H>", function() vim.cmd("tabnext") end, { desc = "Go to next tab" })
 vim.keymap.set({ "n", "i" }, "<A-L>", function() vim.cmd("tabprevious") end, { desc = "Go to previous tab" })
 vim.keymap.set({ "n" }, "<C-S-W>", function() vim.cmd("tabclose") end, { desc = "Close current tab" })
-
