@@ -35,12 +35,6 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
--- require('onedark').setup {
---   toggle_style_key = '<leader>to',
---   -- toggle_style_list = { 'dark', 'cool', 'deep', 'warm' }
--- }
--- vim.keymap.set("n", "<leader>ts", require("onedark").toggle, { desc = "[T]oggle [S]tyle" })
-
 require("luasnip.loaders.from_snipmate").lazy_load({ paths = { "./snippets/" } })
 
 -- require("lspconfig").pyright.setup {
@@ -417,19 +411,6 @@ vim.keymap.set("n", "<leader>dg", function() vim.cmd("DogeGenerate") end, { desc
 vim.g.doge_python_settings = { single_quotes = 0, omit_redundant_param_types = 0 }
 vim.g.doge_doc_standard_python = "numpy"
 
--- require('ayu').setup({
---   overrides = function()
---     if vim.o.background == 'dark' then
---       return { NormalNC = {bg = '#0f151e', fg = '#808080'} }
---     else
---       return { NormalNC = {bg = '#f0f0f0', fg = '#808080'} }
---     end
---   end
--- })
--- vim.keymap.set("n", "<leader>tt", require("themeCycler").open_lazy, { desc = "[T]oggle [T]heme" } )
-vim.keymap.set("n", "<leader>tt", require("telescope.builtin").colorscheme, { desc = "[T]oggle [T]heme" })
-vim.cmd("colorscheme sonokai")
-
 local function new_session(directory_name)
   -- Code ripped from Shatur/neovim-session-manager :)
 
@@ -483,5 +464,3 @@ local function new_session_prompt(prompt)
 end
 
 vim.keymap.set("n", "<leader>sn", new_session_prompt, { desc = "[S]ession: [N]ew" } )
--- vim.keymap.set("n", "q", "<Nop>");
--- vim.keymap.set("n", "Q", vim.api.macr);
