@@ -1,3 +1,6 @@
+vim.g.doge_python_settings = { single_quotes = 0, omit_redundant_param_types = 0 }
+vim.g.doge_doc_standard_python = "numpy"
+
 local function run_python(background)
   vim.cmd.write()
   print("Running...")
